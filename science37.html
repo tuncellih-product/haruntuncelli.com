@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harun Tuncelli — Sr. Product Designer, Science 37</title>
+  <meta name="description" content="Work Calendar — the scheduling system designed for the realities of decentralized clinical trials. Sr. Product Designer portfolio: discovery research, concept validation, product architecture, and the full case study." />
+  <meta property="og:title" content="Harun Tuncelli — Work Calendar at Science 37" />
+  <meta property="og:description" content="A scheduling system designed for the realities of decentralized clinical trials." />
+  <link rel="stylesheet" href="portfolio.css?v=15" />
+</head>
+<body>
+
+  <!-- ============ Topbar ============ -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">H</span>
+        <span>Harun Tuncelli</span>
+      </a>
+      <nav>
+        <a href="index.html">← All projects</a>
+        <a href="#product">Product</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#future">Future</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <span class="eyebrow">Sr. Product Designer · Science 37</span>
+          <h1>A scheduling system designed for the <em>realities of decentralized clinical trials.</em></h1>
+          <p class="lede">
+            Coordinating 330 mobile clinicians across 46 home states, 4 active studies, and 200 participants — with drive-time-aware optimization, license-aware staff matching, and one-click compliance audit. Outcomes: <strong>31% increase in scheduling efficiency</strong> and <strong>50% reduction in scheduling personnel</strong>.
+          </p>
+
+          <div class="hero-meta">
+            <span>📍 <strong>San Diego</strong></span>
+            <span>✉ <a href="mailto:harun@lycia.app">harun@lycia.app</a></span>
+            <span>📞 +1 517 528 6306</span>
+            <span>🔗 <a href="https://www.linkedin.com/in/harun-tuncelli/" target="_blank" rel="noopener">LinkedIn</a></span>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#intro">Read the introduction
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a class="btn btn-secondary" href="decks/science37-work-calendar-case-study.pdf" target="_blank" rel="noopener">Read the case study (PDF)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- TODO: replace this .hero-video.stub with the live iframe once recorded:
+             <div class="hero-video"><iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                title="Intro to the Science 37 Work Calendar portfolio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe></div> -->
+        <div class="hero-video stub" aria-label="Video intro placeholder">
+          <div class="play-orb">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="stub-label">Video intro · YouTube embed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Introduction ============ -->
+  <section id="intro">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">The journey</span>
+        <h2>Introduction</h2>
+        <p>How Work Calendar began, what we ran into, and what it became.</p>
+      </div>
+
+      <div class="prose">
+        <p><strong>Work Calendar started as a question, not a system.</strong> Could a single tool coordinate three hundred mobile clinicians across forty-six home states, four active studies, and two hundred enrolled participants — without making the schedulers' lives harder? Existing tools were built for in-clinic scheduling, not decentralized trials. The shadow Excel where the team actually did the work was a clear signal that the existing system had failed.</p>
+
+        <p><strong>The hardest part was learning what couldn't be compromised.</strong> License safety couldn't be a warning — it had to be a hard rule. Drive time couldn't be an afterthought — it had to be a first-class input on every match. Multi-role visits couldn't sit on the calendar as one block — they had to be slice-aware, role by role. Each of these started as an "if we have time" feature and became a non-negotiable.</p>
+
+        <p><strong>We resolved the complexity by making the roster the foundation.</strong> Every booking, conflict check, and coverage decision joins back to a single roster table — role, home city, state licensures, study training. The matching engine reads from that table; the calendar, optimizer, audit, and request triage all read from the same source of truth. No duplicated state, no gaps where one part of the system trusted different facts than another.</p>
+
+        <p><strong>The shipped product moves the work that used to take two schedulers per study down to one</strong> — with the engine doing the routing, matching, and conflict resolution. Thirty-one percent gain in efficiency, fifty percent reduction in scheduling personnel. The next move is to expand the engine to adjacent operational surfaces — timesheets, payroll, training records — that today live in separate tools but share the same roster.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ How we started ============ -->
+  <section id="how-we-started">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">The starting point</span>
+        <h2>How we started</h2>
+        <p>The discovery research that named the problem, and the concept validation work that confirmed the design answered it. Two bound deliverables.</p>
+      </div>
+      <div class="cards">
+        <a class="card" href="decks/science37-discovery-research.pdf" target="_blank" rel="noopener">
+          <span class="card-tag">Discovery research</span>
+          <h3>Pre-build problem validation</h3>
+          <p>What schedulers, RNs, CRCs, and investigators actually do today — the shadow Excel, the license-safety gap, the slice-level data model, and the audit problem. The four findings that became the four product principles.</p>
+          <span class="card-foot">Open the PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+        <a class="card" href="decks/science37-concept-validation-research.pdf" target="_blank" rel="noopener">
+          <span class="card-tag">Concept validation</span>
+          <h3>Did the design answer what they asked for?</h3>
+          <p>Round-two interviews against the shipped concepts. Thesis confirmed, discovery gaps closed, two new gaps in the queue. The framework that decides what ships next vs. what waits.</p>
+          <span class="card-foot">Open the PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Product we created ============ -->
+  <section id="product">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">The product</span>
+        <h2>Product we created</h2>
+        <p>Work Calendar — eleven shipped surfaces, one source of truth. The visual walk and the design rationale behind every decision.</p>
+      </div>
+
+      <div class="prose">
+        <p><strong>Work Calendar is a vertical product.</strong> Every feature exists because a real human — scheduler, manager, clinician, sponsor — has a specific job and a specific frustration. The calendar canvas is the home base. Optimize Day shrinks a nurse's drive time with a 2-opt route optimizer. Smart Match books an RN, CRC, and investigator together with one click. Quick Book lets a scheduler book a visit without leaving the keyboard. Coverage Insights resolves time-off requests in batch. Audit records every change with an undo for bulk actions.</p>
+
+        <p><strong>The full case study walks all eleven surfaces in narrative order</strong> — the calendar, the role timeline, optimize day, quick book, the new-appointment form, the request triage, smart-match panels, coverage insights, the roster, audit, and the appointment detail panel. Below: six of those surfaces summarized as cards, then the complete UI gallery, then the case-study PDF link.</p>
+      </div>
+
+      <div class="cards" style="margin-top: 28px;">
+        <div class="card no-link">
+          <span class="card-tag">Calendar canvas</span>
+          <h3>One workspace for the entire scheduling team</h3>
+          <p>Filter first, focus second. Search across the full network, drop chips for provider / study / state / role, and the calendar collapses to just the work that matters this morning.</p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Role timeline</span>
+          <h3>One timeline. Every role's actual minutes on every visit</h3>
+          <p>An AFIB-301 screening is RN on-site 90 min, CRC dialing in for the middle 60, investigator for the final 30. The calendar shows each role's exact slice — not the whole appointment block.</p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Optimize day</span>
+          <h3>2-opt drive-time optimizer, per provider, per day</h3>
+          <p>Treats a nurse's day as a Travelling Salesman instance anchored at her home. Nearest-neighbor seed, 2-opt local search, before/after diff. One click to accept the shorter route.</p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Quick book</span>
+          <h3>⌘K command palette — book without leaving the keyboard</h3>
+          <p>Linear/Figma-style palette. Type a participant ID, study, and time. An appointment is created in seconds. Built because schedulers do dozens of bookings a day and slow point-and-click is a tax on throughput.</p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Smart match</span>
+          <h3>One click pairs the right RN, CRC, and investigator</h3>
+          <p>The matching engine filters by study trained, state licensure, and slot availability — then ranks by drive distance from home to the participant. The scheduler sees the top match and the reasons, books all three in one click.</p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Coverage insights</span>
+          <h3>89 time-off requests, 87 resolved without scheduler legwork</h3>
+          <p>Auto-classifies the queue: 65 have no coverage impact (one-click approve), 22 collide with confirmed visits but a nearby licensed RN can swap in (one-click reassign), 2 are blocking and require an explicit reschedule.</p>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">The shipped UI</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">A walk through the eleven surfaces.</h3>
+        <p>Click a thumbnail to open the full screenshot.</p>
+      </div>
+
+      <div class="screen-grid">
+        <a class="screen-tile" href="images/science37/screenshots/01-calendar-default.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/01-calendar-default.png" alt="Calendar empty state" loading="lazy" /></div>
+          <div class="screen-cap">Calendar — empty state</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/02-calendar-filtered.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/02-calendar-filtered.png" alt="Calendar with provider chip" loading="lazy" /></div>
+          <div class="screen-cap">Calendar — filtered view</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/03-optimize-day.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/03-optimize-day.png" alt="Optimize Day modal" loading="lazy" /></div>
+          <div class="screen-cap">Optimize Day — drive-time engine</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/04-quick-book.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/04-quick-book.png" alt="Quick Book palette" loading="lazy" /></div>
+          <div class="screen-cap">Quick Book — ⌘K palette</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/05-new-appt.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/05-new-appt.png" alt="New Appointment screen" loading="lazy" /></div>
+          <div class="screen-cap">New Appointment — full form</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/06-appt-reqs.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/06-appt-reqs.png" alt="Appointment Requests dashboard" loading="lazy" /></div>
+          <div class="screen-cap">Requests — triage queue</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/07-appt-reqs-panel.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/07-appt-reqs-panel.png" alt="Request panel with smart candidates" loading="lazy" /></div>
+          <div class="screen-cap">Request panel — smart candidates</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/08-provider-availability.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/08-provider-availability.png" alt="Provider Availability with coverage insights" loading="lazy" /></div>
+          <div class="screen-cap">Availability — coverage insights</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/09-providers.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/09-providers.png" alt="Providers roster" loading="lazy" /></div>
+          <div class="screen-cap">Roster — 330 clinicians</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/10-audit-panel.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/10-audit-panel.png" alt="Audit panel" loading="lazy" /></div>
+          <div class="screen-cap">Audit — every change recorded</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/11-appt-detail.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/11-appt-detail.png" alt="Appointment detail with role timeline" loading="lazy" /></div>
+          <div class="screen-cap">Appointment detail — role timeline</div>
+        </a>
+      </div>
+
+      <div class="cards" style="margin-top: 36px;">
+        <a class="card" href="decks/science37-work-calendar-case-study.pdf" target="_blank" rel="noopener">
+          <span class="card-tag">Product case study</span>
+          <h3>The full case study — every surface, every decision</h3>
+          <p>Eleven surfaces walked end-to-end with the design rationale behind each one. Reads like a product narrative, not a screenshot dump.</p>
+          <span class="card-foot">Open the PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ The roster-first architecture ============ -->
+  <section id="architecture">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">The decision that shaped everything</span>
+        <h2>The roster-first architecture</h2>
+        <p>Why a single roster table sits underneath the calendar, the optimizer, the matcher, and the audit — and what changes when you make that the foundation.</p>
+      </div>
+
+      <div class="prose">
+        <p><strong>Most scheduling systems treat the roster as a directory.</strong> A list of names you scroll. Work Calendar treats it as a query target — every booking, conflict check, and coverage decision joins back to it. The matching engine asks the roster: who is study-trained on AFIB-301, licensed in California, free at 2pm next Tuesday, and within 90 minutes of the participant's address? The roster answers in milliseconds because that's the shape of the data.</p>
+
+        <p><strong>Four product principles fall out of this decision.</strong> Built for operations — every UI surface maps to a real role and a real frustration. Designed for trust — license safety is a hard rule, not a warning. Architected for scale — the roster is the only place state lives, so the system stays consistent as it grows. Audit as a query, not a feature — every action is recorded the same way, so a regulatory request becomes a filtered read instead of a forensic dig.</p>
+
+        <p><strong>The architecture document below walks the system end-to-end</strong> — entity model, the matching engine as a query, the optimizer as a bounded service, the audit log as a read-side projection, and the integration surface for sponsor portals and patient self-service.</p>
+      </div>
+
+      <div class="cards" style="margin-top: 28px;">
+        <a class="card" href="decks/science37-product-architecture.pdf" target="_blank" rel="noopener">
+          <span class="card-tag">Product architecture</span>
+          <h3>How this should be built</h3>
+          <p>What connects to what — the roster as source of truth, the matching engine as a query, audit as a read-side, the optimizer as a bounded service. The shape of the system before any code is written.</p>
+          <span class="card-foot">Open the PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Outcomes ============ -->
+  <section id="outcomes">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">Outcomes</span>
+        <h2>What changed, in numbers</h2>
+        <p>The metrics that justify the work — efficiency, headcount, scope of the system, and the operational model behind it.</p>
+      </div>
+      <div class="thesis-grid">
+        <div class="vert">
+          <div class="vert-icon">⚡</div>
+          <h3>+31%</h3>
+          <p>Scheduling efficiency. Faster matching, fewer back-and-forths, drive-time-aware routing on every booking.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">👥</div>
+          <h3>–50%</h3>
+          <p>Scheduling personnel. The work that used to need two schedulers per study now needs one, with the engine doing the heavy lifting.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">🩺</div>
+          <h3>330 clinicians</h3>
+          <p>Modeled across the network: 150 FTE RN, 100 PD RN, 30 CRC, 20 INV, 15 Ped RN, 15 Diet — license-aware and study-trained.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">📋</div>
+          <h3>200 participants</h3>
+          <p>Across 4 active studies (AFIB-301, HFREF-204, NSCLC-301, T2D-208), each with its own visit cadence and protocol.</p>
+        </div>
+      </div>
+
+      <div class="network-note">
+        <strong>Coverage insights, in practice.</strong> Of 89 incoming time-off requests, 65 had no coverage impact and approved in one click. 22 collided with confirmed visits but a nearby licensed RN could swap in (one-click reassign + approve). 2 were blocking and required an explicit reschedule decision. 65 + 22 = 87 resolved without manual scheduling work — the headline metric the team felt every week.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Future expansion plan ============ -->
+  <section id="future">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">What comes next</span>
+        <h2>Future expansion plan</h2>
+        <p>Where the engine could go next — and why the roster-first architecture makes those moves cheap to build.</p>
+      </div>
+
+      <div class="prose">
+        <p><strong>The roster is already shared by tools the calendar doesn't talk to yet.</strong> Timesheets read it for payroll. Training records read it for compliance. Onboarding reads it for credentialing. Each of those tools today maintains its own copy — drift, duplication, and the same staffing data answered differently in different places. Folding them onto the same roster is a data-model expansion, not a re-architecture.</p>
+
+        <p><strong>[PLACEHOLDER — concrete next surfaces.]</strong> Fill in with the 2–3 specific surfaces you'd build next: e.g., timesheet auto-generation from the calendar, payroll export, training-record reminders driven by upcoming visits, sponsor self-service for visit requests, etc. Tighten this paragraph with whichever direction Science 37 (or you) saw as the most valuable next bet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer>
+    <div class="wrap">
+      <div>
+        <h3>Let's talk.</h3>
+        <p>Sr. Product Designer · Director of Product · Healthcare · AI</p>
+      </div>
+      <div class="contact">
+        <a href="mailto:harun@lycia.app">harun@lycia.app</a>
+        <a href="tel:+15175286306">+1 517 528 6306</a>
+        <a href="https://www.linkedin.com/in/harun-tuncelli/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
