@@ -1,0 +1,224 @@
+[
+  {
+    "slug": "picturepals-app",
+    "title": "PicturePals App",
+    "thumb": "intro3.jpg",
+    "images": [
+      "intro3.jpg",
+      "signup3.jpg",
+      "home3.jpg",
+      "Reservation.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/picturepals-app/"
+  },
+  {
+    "slug": "remedly-medical-app",
+    "title": "Remedly Medical App",
+    "thumb": "1introrem.jpg",
+    "images": [
+      "1introrem.jpg",
+      "2appointments4.jpg",
+      "3reforms.jpg",
+      "4medications.jpg",
+      "5billing4.jpg",
+      "6Messages4.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/remedly-medical-app/"
+  },
+  {
+    "slug": "remedly-web-app",
+    "title": "Remedly Web App",
+    "thumb": "statsweb.jpg",
+    "images": [
+      "statsweb.jpg",
+      "patient-listweb.jpg",
+      "chartweb.jpg",
+      "calendar1.jpg",
+      "1research.jpg",
+      "R12.jpg",
+      "r13.jpg",
+      "R14.jpg",
+      "pre1.jpg",
+      "R16.jpg",
+      "R17.jpg",
+      "r18.jpg",
+      "Post2.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/remedly-web-app/"
+  },
+  {
+    "slug": "remedly-social-ads",
+    "title": "Remedly Social Ads",
+    "thumb": "rseries2.jpg",
+    "images": [
+      "rseries2.jpg",
+      "rokseries.jpg",
+      "refinal.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/remedly-social-ads/"
+  },
+  {
+    "slug": "kizen-crm-platform",
+    "title": "Kizen CRM Platform",
+    "thumb": "Dashboard.jpg",
+    "images": [
+      "Dashboard.jpg",
+      "Contact.jpg",
+      "Widget.jpg",
+      "Email.jpg",
+      "Settings.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/kizen-crm-platform/"
+  },
+  {
+    "slug": "hubhaus-product-design",
+    "title": "Hubhaus Product Design",
+    "thumb": "hubhaussignup.jpg",
+    "images": [
+      "hubhaussignup.jpg",
+      "Swipe-System3.jpg",
+      "Details.jpg",
+      "message-system.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/hubhaus-product-design/"
+  },
+  {
+    "slug": "ui-design-wadadu",
+    "title": "UI Design \u2014 Wadadu",
+    "thumb": "3angled-app-ht.jpg",
+    "images": [
+      "3angled-app-ht.jpg",
+      "Sign-up-explore.jpg",
+      "4setup3.jpg",
+      "Profile-HT.jpg",
+      "3setup.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/ui-design-wadadu/"
+  },
+  {
+    "slug": "personal-finance-app-design",
+    "title": "Personal Finance App Design",
+    "thumb": "Intro-Finance.jpg",
+    "images": [
+      "Intro-Finance.jpg",
+      "signupprocess2.jpg",
+      "HTFinance-3.jpg",
+      "requestht.jpg",
+      "sendht.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/personal-finance-app-design/"
+  },
+  {
+    "slug": "spieth-america-social-ads",
+    "title": "Spieth America Social Ads",
+    "thumb": "greyseries.jpg",
+    "images": [
+      "greyseries.jpg",
+      "blueseries.jpg",
+      "spiethr1.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/spieth-america-social-ads/"
+  },
+  {
+    "slug": "sa-promotional-meet-booklet",
+    "title": "SA Promotional Meet Booklet",
+    "thumb": "Meetbooklet1-edited.jpg",
+    "images": [
+      "Meetbooklet1-edited.jpg",
+      "Meetbooklet2.jpg",
+      "Meetbooklet3.jpg",
+      "Meetbooklet4.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/sa-promotional-meet-booklet/"
+  },
+  {
+    "slug": "2018-sa-catalog",
+    "title": "2018 SA Catalog",
+    "thumb": "USCatalog.jpg",
+    "images": [
+      "USCatalog.jpg",
+      "USCatalog2.jpg",
+      "USCatalog3.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/2018-sa-catalog/"
+  },
+  {
+    "slug": "2017-sa-catalog",
+    "title": "2017 SA Catalog",
+    "thumb": "catalog2017-1-1.jpg",
+    "images": [
+      "catalog2017-1-1.jpg",
+      "catalog2017-2.jpg",
+      "catalog2017-3.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/2017-sa-catalog/"
+  },
+  {
+    "slug": "tyger-brewery-packaging-design",
+    "title": "Tyger Brewery Packaging Design",
+    "thumb": "allinone-1.jpg",
+    "images": [
+      "allinone-1.jpg",
+      "Secondview-copy.jpg",
+      "coasters-1.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/tyger-brewery-packaging-design/"
+  },
+  {
+    "slug": "robotic-compliments-one-liners",
+    "title": "Robotic Compliments & One Liners",
+    "thumb": "Robots1.jpg",
+    "images": [
+      "Robots1.jpg",
+      "secondsetrobots.jpg",
+      "rearviewrobots.jpg",
+      "topandbottom.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/robotic-compliments-one-liners/"
+  },
+  {
+    "slug": "nbs-animal-rescue",
+    "title": "NBS Animal Rescue",
+    "thumb": "NBS1.jpg",
+    "images": [
+      "NBS1.jpg",
+      "NBS2.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/nbs-animal-rescue/"
+  },
+  {
+    "slug": "my-brothers-keeper-saginaw",
+    "title": "My Brother's Keeper Saginaw",
+    "thumb": "Setup1.jpg",
+    "images": [
+      "Setup1.jpg",
+      "stationary2.jpg",
+      "envelope.jpg",
+      "businesscards.jpg",
+      "newsad.jpg",
+      "flyermbk.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/my-brothers-keeper-saginaw/"
+  },
+  {
+    "slug": "kevin-vauser-corporate-identity",
+    "title": "Kevin Vauser Corporate Identity",
+    "thumb": "kevin1.jpg",
+    "images": [
+      "kevin1.jpg",
+      "kevin2.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/100/"
+  },
+  {
+    "slug": "hermanos-salsa",
+    "title": "Hermanos Salsa",
+    "thumb": "Hermanosweb1.jpg",
+    "images": [
+      "Hermanosweb1.jpg",
+      "Hermanoscapweb.jpg",
+      "hermanosbackviewweb.jpg"
+    ],
+    "source_url": "https://haruntuncelli.com/portfolio/43-2/"
+  }
+]
