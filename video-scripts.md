@@ -18,7 +18,7 @@ Pacing target: **150–160 words per minute** (conversational, not rushed). Each
 >
 > The first featured project is Lycia AI itself. That's where I'm Director of Product today, shipped end-to-end. The Lycia page walks through the live product, the market research behind it, the multi-sided commerce thesis driving the next expansion, customer case studies with real dollar outcomes, and a working concept demo of an AI-native PMS for independent hotels.
 >
-> The second featured project is Science 37, where I led design on Work Calendar — the scheduling system for decentralized clinical trials. It coordinates three hundred and thirty mobile clinicians across forty-six home states and four active studies. Outcomes: thirty-one percent increase in scheduling efficiency, fifty percent reduction in scheduling personnel.
+> The second featured project is Science 37, where I led design on Visit Operations Platform — the scheduling system for decentralized clinical trials. It coordinates three hundred and thirty mobile clinicians across forty-six home states and four active studies. Outcomes: thirty-one percent increase in scheduling efficiency, fifty percent reduction in scheduling personnel.
 >
 > The third featured project is Remedly, where I worked as a UI/UX designer on the electronic health record system — the practitioner web platform, the tablet medical app, and the brand system around them.
 >
@@ -56,13 +56,13 @@ Pacing target: **150–160 words per minute** (conversational, not rushed). Each
 
 ---
 
-## 3. Science 37 (`science37.html`) — Sr. Product Designer, Work Calendar
+## 3. Science 37 (`science37.html`) — Sr. Product Designer, Visit Operations Platform
 
 **Length:** ~305 words · ~1:58
 
-> Hi, I'm Harun. This is the Work Calendar portfolio from Science 37.
+> Hi, I'm Harun. This is the Visit Operations Platform portfolio from Science 37.
 >
-> Work Calendar is the scheduling system that powers Science 37's decentralized clinical trials. As Senior Product Designer, I led the end-to-end design — discovery research, concept validation, the shipped UI, and the product architecture behind it.
+> Visit Operations Platform is the scheduling system that powers Science 37's decentralized clinical trials. As Senior Product Designer, I led the end-to-end design — discovery research, concept validation, the shipped UI, and the product architecture behind it.
 >
 > The system coordinates three hundred and thirty mobile clinicians across forty-six home states, four active studies, and two hundred enrolled participants. Outcomes: thirty-one percent increase in scheduling efficiency, and fifty percent reduction in scheduling personnel.
 >
