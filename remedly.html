@@ -7,7 +7,7 @@
   <meta name="description" content="Sole designer on Remedly's EHR rebuild — 60–70% reduction in time per task, a patient mobile app with gamified intake, and a 2019 voice-AI concept that raised company funding before ChatGPT existed." />
   <meta property="og:title" content="Harun Tuncelli — Remedly EHR rebuild" />
   <meta property="og:description" content="Sole designer on Remedly's EHR rebuild. 60–70% time reduction, patient mobile app, 2019 voice-AI concept." />
-  <link rel="stylesheet" href="portfolio.css?v=15" />
+  <link rel="stylesheet" href="portfolio.css?v=16" />
 </head>
 <body>
 
@@ -90,21 +90,92 @@
     </div>
   </section>
 
-  <!-- ============ How we started ============ -->
+  <!-- ============ Pre-product research ============ -->
   <section id="how-we-started">
     <div class="wrap">
       <div class="section-header">
-        <span class="kicker">The starting point</span>
-        <h2>How we started</h2>
-        <p>The work that came before any pixels — cataloging the existing application and building the components that every redesigned page would inherit.</p>
+        <span class="kicker">Before any pixels</span>
+        <h2>Pre-product research</h2>
+        <p>Qualitative-heavy research with users, sales, clinical staff, and Remedly's clinical board — plus a competitor teardown of Epic and Cerner — built the action plan that drove every design decision that followed.</p>
       </div>
 
       <div class="prose">
-        <p><strong>Cataloging came before design.</strong> A fast designer in a feature-rich product is a designer who removes things. The redesign had to preserve every flow the existing users depended on, so the first deliverable was a complete inventory: every page, every button, every data point — what it did, who used it, and what it depended on. That catalog became the source of truth the design system was built against.</p>
+        <p><strong>The constraint shaped the method.</strong> Remedly was a 20–30-person startup with a small user base; full quantitative UX research wasn't an option. So I went qualitative-heavy: interviewed existing users, the customer-experience and sales departments, clinical staff, and Remedly's clinical board members. n=22 across the customer-interview pool, plus internal stakeholders. The first deliverable was a full inventory of the existing application — every page, every button, every data point — paired with what each user role actually did with it.</p>
 
-        <p><strong>The design system came before any pages.</strong> I built the components first — buttons, inputs, tables, modals, side panels, charts — so every page redesign would inherit consistent behavior and look. The slow-up-front-pays-back-exponentially work that, in a hundreds-of-pages product, is the only way through.</p>
+        <p><strong>The customer signals pointed in one direction.</strong> 78% of users disliked the UI; 69% said tasks took too long; 75% said the product didn't align with the sales pitch; and 72% used Remedly primarily for <em>scheduling</em>, not for the EHR features. Stack-ranked positives and negatives from the n=22 pool gave the work a target list — the body map and the calendar/booking flow were broadly liked; the click count, the popups, and the time to record medical history were the consistent complaints. 20 of 22 respondents named recording medical history as the worst friction in the original product.</p>
 
-        <p><strong>I also owned the research.</strong> Stakeholder interviews with clinicians, billing staff, and front-desk operators. Workflow shadowing where I could. As the only designer in the company, the boundary between research and design was a productivity asset, not an org-chart problem — what I learned in the morning shaped what I drew in the afternoon.</p>
+        <p><strong>Competitor benchmarking turned the complaints into a target.</strong> I rated Remedly against Epic and Cerner on four axes — medical content quality, workflow speed, feature breadth, and usability/UI. Remedly was behind on every one. From Epic, the lessons to copy were customization and a large-userbase UX vocabulary; from Cerner, left-menu navigation, auto-dictation, tables for readability, and a restrained color palette. From both, the failure modes to avoid: oversized icons, outdated visuals, popup-heavy workflows, and tab-based navigation that hides what users actually need.</p>
+      </div>
+
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">Customer experience signals</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">Four findings from sales and customer-experience interviews.</h3>
+      </div>
+      <div class="thesis-grid">
+        <div class="vert">
+          <div class="vert-icon">😖</div>
+          <h3>78%</h3>
+          <p>Expressed dislike for the existing UI.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">⏱</div>
+          <h3>69%</h3>
+          <p>Said the product took too long to accomplish basic tasks.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">🎯</div>
+          <h3>75%</h3>
+          <p>Said the product didn't align with the sales pitch.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">📅</div>
+          <h3>72%</h3>
+          <p>Used Remedly primarily for scheduling — not for the EHR features.</p>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">Competitor benchmark</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">Remedly vs. Epic and Cerner — behind on every axis.</h3>
+        <p>Scored out of 10 against medical-content quality, workflow speed, feature breadth, and usability/UI.</p>
+      </div>
+      <div class="thesis-grid">
+        <div class="vert">
+          <h3>Medical content</h3>
+          <p><strong>Remedly 6.2</strong><br />Epic 8.8 · Cerner 8.4</p>
+        </div>
+        <div class="vert">
+          <h3>Workflow speed</h3>
+          <p><strong>Remedly 5.0</strong><br />Epic 5.4 · Cerner 7.2</p>
+        </div>
+        <div class="vert">
+          <h3>Features</h3>
+          <p><strong>Remedly 4.8</strong><br />Epic 9.2 · Cerner 8.4</p>
+        </div>
+        <div class="vert">
+          <h3>Usability &amp; UI</h3>
+          <p><strong>Remedly 4.4</strong><br />Epic 6.4 · Cerner 7.6</p>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">The action plan</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">Six priorities, in order.</h3>
+        <p>Derived from the customer signals, the competitor benchmark, and the clinical-board feedback.</p>
+      </div>
+      <div class="prose">
+        <ol>
+          <li><strong>CEHR certification.</strong> The single largest financial incentive and a baseline credibility requirement. 22 of 22 respondents flagged its absence.</li>
+          <li><strong>UI rebuild.</strong> Analyze existing workflows, modernize visuals, and reduce click count systematically. The 78% UI-dislike and 69% task-too-long signals collapse into this priority.</li>
+          <li><strong>Medical-forms customization.</strong> The largest feature gap, named by 20 of 22 respondents. The fix was a customization tool, not more pre-built templates.</li>
+          <li><strong>Booking system rebuild.</strong> A new clinical-first system that fixes what 18 of 22 already liked about Remedly's calendar — without breaking what worked.</li>
+          <li><strong>Billing functionality.</strong> The second-largest functional complaint (19 of 22). On-the-spot codes and macros to address smaller-clinic workflows.</li>
+          <li><strong>Patient-facing app.</strong> The post-encounter time problem starts pre-encounter — confirm medical history before the patient walks in. This priority became the patient mobile-app project.</li>
+        </ol>
+      </div>
+
+      <div class="network-note" style="margin-top: 32px;">
+        <strong>The persona work was untraditional.</strong> The standard persona output — name, age, photo, hopes, dreams — wasn't producing decisions. I built a five-trait standardized model (Openness/Extraversion · Conscientiousness · Neuroticism/Extraversion · Agreeableness/Conscientiousness · Likes Ease ↔ Likes Detail) so each persona produced a measurable trait profile. Six personas total. Each one mapped to specific UI implications — the user who's risk-averse and detail-oriented gets confirmation patterns; the user who's calm and methodical gets bulk-action shortcuts. The action plan got pressure-tested against all six before any design work began.
       </div>
     </div>
   </section>
@@ -163,40 +234,81 @@
     </div>
   </section>
 
-  <!-- ============ Outcomes ============ -->
+  <!-- ============ Post-product result research ============ -->
   <section id="outcomes">
     <div class="wrap">
       <div class="section-header">
-        <span class="kicker">Outcomes</span>
-        <h2>What changed, in numbers</h2>
-        <p>The measurable impact of the work — and the credibility shift that didn't show up in any metric.</p>
+        <span class="kicker">After the redesign</span>
+        <h2>Post-product result research</h2>
+        <p>Same six personas, same workflow areas, re-tested against a high-fidelity prototype of 100+ redesigned pages — with the time-per-task numbers verified against the original baseline.</p>
       </div>
 
+      <div class="prose">
+        <p><strong>Time to record medical history dropped 43% — measured against the same workflow that 20 of 22 pre-research respondents had named the worst friction point in the original product.</strong> Across the redesigned task surface generally, time-per-task improved by an estimated 60–70% depending on the flow. The persona re-tests across three feature areas — Assessment &amp; Plan, List View, and Body Map — flipped the per-feature ratings on UI, usability, speed, and content from mostly negative in the pre-update review to mostly positive in the post-update review.</p>
+
+        <p><strong>The strategy was to copy what worked from the competitors and avoid what didn't.</strong> Implemented from Epic and Cerner: the left-menu navigation pattern, auto-dictation that turns interactions into notes, customization as a first-class capability, tables and structured sections for readability, and the ability to scroll through sections instead of clicking between them. Left in their products: cognitive overload from heavy color and icon use, busy workflows, lack of hierarchy, popup-driven customization, and overcrowded top menus. The post-update prototype was the first time Remedly's product looked like it belonged in the same category as Epic and Cerner instead of a generation behind.</p>
+
+        <p><strong>Two design ideas were inventions, not imports.</strong> "Creation boxes" replaced popups during the encounter flow — a contextual interface that surfaces inline when a user clicks "add," with a "save &amp; next" button so adding multiple items doesn't require reopening the same dialog. The split-screen body map became a collapsible widget that occupied 60% less screen space while preserving every interaction the previous product had supported, plus a muscle/skeletal toggle and a zoom view for focused encounters. On-the-spot billing codes with macros let smaller clinics close out a visit without leaving the encounter flow.</p>
+      </div>
+
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">The numbers</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">Headline outcomes from the post-update research.</h3>
+      </div>
       <div class="thesis-grid">
         <div class="vert">
           <div class="vert-icon">⏱</div>
+          <h3>−43%</h3>
+          <p>Time to record medical history. The worst friction point in the original product, measured against the same flow.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">⚡</div>
           <h3>−60–70%</h3>
-          <p>Time per task across the redesigned EHR. Faster charting, scheduling, and billing flows — without losing accuracy or HIPAA compliance.</p>
+          <p>Time per task across redesigned flows. Estimated; varies by flow.</p>
         </div>
         <div class="vert">
-          <div class="vert-icon">🎨</div>
-          <h3>Solo designer</h3>
-          <p>One designer across research, design system, every page redesign, and every stakeholder interview. The whole product owned end-to-end.</p>
-        </div>
-        <div class="vert">
-          <div class="vert-icon">🧠</div>
-          <h3>2019 AI concept</h3>
-          <p>Voice-driven patient-visit capture, designed before ChatGPT existed. The concept raised the funding round that kept the company going.</p>
+          <div class="vert-icon">📐</div>
+          <h3>−60%</h3>
+          <p>Screen space for the body-map widget. Same interactions, far smaller footprint.</p>
         </div>
         <div class="vert">
           <div class="vert-icon">🏗</div>
-          <h3>Design system</h3>
-          <p>Built from zero against a hundreds-of-pages product. Minimalist by choice — sized to age well for a decade rather than need another rebuild.</p>
+          <h3>100+ pages</h3>
+          <p>Redesigned to a single design system, in a hundreds-of-pages EHR product.</p>
         </div>
       </div>
 
-      <div class="network-note">
-        <strong>The brand transformation was the unspoken outcome.</strong> The product stopped looking like a company stuck in the early 2000s and started looking like a strong, modern company that took itself seriously. That mattered for sales: demos now opened the conversation instead of needing an apology for the screens. The credibility shift didn't show up in a metric, but the team felt it on every customer call.
+      <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
+        <span class="kicker">Competitor strategy</span>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">What we copied. What we avoided.</h3>
+      </div>
+      <div class="cards">
+        <div class="card no-link">
+          <span class="card-tag">Implemented from Epic + Cerner</span>
+          <h3>The patterns we borrowed</h3>
+          <p>
+            • Left-menu navigation for organizing sections<br />
+            • Auto-dictation: voice → structured notes<br />
+            • High customization as a first-class capability<br />
+            • Tables and structured sections for readability<br />
+            • Scrollable sections instead of click-through tabs
+          </p>
+        </div>
+        <div class="card no-link">
+          <span class="card-tag">Avoided in their products</span>
+          <h3>The patterns we didn't carry forward</h3>
+          <p>
+            • Cognitive overload from heavy color and icon use<br />
+            • Busy workflows + overloaded screen spaces<br />
+            • Lack of visual hierarchy<br />
+            • Popup-driven customization UX<br />
+            • Busy and overcrowded top menus
+          </p>
+        </div>
+      </div>
+
+      <div class="network-note" style="margin-top: 32px;">
+        <strong>The brand transformation was the unspoken outcome.</strong> The product stopped looking like a company stuck in the early 2000s and started looking like a strong, modern company that took itself seriously. That mattered for sales: demos now opened the conversation instead of needing an apology for the screens. The credibility shift didn't show up in a number, but the team felt it on every customer call.
       </div>
     </div>
   </section>

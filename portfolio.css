@@ -282,6 +282,15 @@ section:last-of-type { border-bottom: none; }
 }
 .prose p:last-child { margin-bottom: 0; }
 .prose strong { color: var(--ink-1); font-weight: 600; }
+.prose ol, .prose ul {
+  font-size: 17.5px;
+  line-height: 1.78;
+  color: var(--ink-2);
+  margin: 0 0 18px;
+  padding-left: 26px;
+}
+.prose li { margin-bottom: 10px; }
+.prose li:last-child { margin-bottom: 0; }
 
 /* ===== Thesis network diagram ===== */
 .thesis-grid {
