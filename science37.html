@@ -7,7 +7,7 @@
   <meta name="description" content="Visit Operations Platform — an engine-first operating model for decentralized clinical trials. Strategic proposal, DCT market sizing, full case study, discovery research, concept validation, and product architecture. Sr. Product Designer / Director of Product portfolio." />
   <meta property="og:title" content="Harun Tuncelli — Visit Operations Platform at Science 37" />
   <meta property="og:description" content="An engine-first operating model for decentralized clinical trials. $48–132M/yr modeled metro-focus revenue uplift, peer-reviewed sourcing throughout." />
-  <link rel="stylesheet" href="portfolio.css?v=31" />
+  <link rel="stylesheet" href="portfolio.css?v=33" />
 </head>
 <body class="science37">
 
@@ -45,12 +45,18 @@
           <span class="eyebrow">Sr. Product Designer · Science 37</span>
           <h1>An <em>engine-first operating model</em> for decentralized clinical trials.</h1>
           <p class="lede">
-            The prototype models 1,000 participants across 6 metros with 126 staff at snapshot ratios of <strong>1:42 CRC</strong> and <strong>1:12 RN</strong> — both at the strict end of the closest published benchmarks (no industry standard exists for either). Modeled financial impact: <strong>$48–132M/yr</strong> in metro-focus revenue uplift, plus <strong>$1.7–3.2M/yr</strong> in scheduler-side savings. Career outcomes from prior Science 37 work: <strong>31% scheduling-efficiency gain, 50% scheduler reduction</strong>.
+            The prototype runs <strong>1,000 participants on 126 staff</strong> at ratios leaner than the closest published benchmarks: <strong>1:42 CRC</strong> (vs the 1:15–1:30 site-based industry anecdote), <strong>1:12 RN</strong> (strict end of hospice's 1:12–1:14 — the closest in-home-nursing analogue, since no DCT standard exists), and <strong>1:71 INV</strong> (no industry comparator).
+          </p>
+          <p class="lede">
+            Modeled scheduler-side capacity reclaim: <strong>$1.7–3.2M/yr</strong>.
+          </p>
+          <p class="lede">
+            Combined with a strategic shift to a 6-metro footprint and rebuilding the company around the optimizer engine as operating-model substrate, modeled total impact reaches <strong>$50–135M/yr</strong> — roughly 70–190% of Science 37's last-reported FY2022 revenue.
           </p>
 
           <div class="hero-meta">
             <span>📍 <strong>San Diego</strong></span>
-            <span>✉ <a href="mailto:harun@lycia.app">harun@lycia.app</a></span>
+            <span>✉ <a href="mailto:tuncellih@gmail.com">tuncellih@gmail.com</a></span>
             <span>📞 +1 517 528 6306</span>
             <span>🔗 <a href="https://www.linkedin.com/in/harun-tuncelli/" target="_blank" rel="noopener">LinkedIn</a></span>
           </div>
@@ -59,7 +65,7 @@
             <a class="btn btn-primary" href="#intro">Read the introduction
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <a class="btn btn-secondary" href="decks/science37-case-study.pdf" target="_blank" rel="noopener">Read the case study (PDF)
+            <a class="btn btn-secondary" href="decks/science37-optimizer-engine-proposal.html" target="_blank" rel="noopener">Read the case study
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
             </a>
           </div>
@@ -94,7 +100,7 @@
 
         <p><strong>We resolved the complexity by making the roster the foundation.</strong> Every booking, conflict check, and coverage decision joins back to a single roster table — role, home city, state licensures, study training. The matching engine reads from that table; the calendar, optimizer, audit, and request triage all read from the same source of truth. No duplicated state, no gaps where one part of the system trusted different facts than another.</p>
 
-        <p><strong>The shipped product moves the work that used to take two schedulers per study down to one</strong> — with the engine doing the routing, matching, and conflict resolution. Thirty-one percent gain in efficiency, fifty percent reduction in scheduling personnel. The next move is to expand the engine to adjacent operational surfaces — timesheets, payroll, training records — that today live in separate tools but share the same roster.</p>
+        <p><strong>The shipped product moves the work that used to take two schedulers per study down to one</strong> — with the engine doing the routing, matching, and conflict resolution. The next move is to expand the engine to adjacent operational surfaces — timesheets, payroll, training records — that today live in separate tools but share the same roster.</p>
       </div>
     </div>
   </section>
@@ -178,54 +184,58 @@
 
       <div class="section-header" style="margin-top: 56px; margin-bottom: 24px;">
         <span class="kicker">The shipped UI</span>
-        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">A walk through the eleven surfaces.</h3>
+        <h3 style="font-size: 22px; font-weight: 700; margin: 0 0 8px;">A walk through the twelve surfaces.</h3>
         <p>Click a thumbnail to open the full screenshot.</p>
       </div>
 
       <div class="screen-grid">
-        <a class="screen-tile" href="images/science37/screenshots/01-calendar-default.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/01-calendar-default.png" alt="Calendar empty state" loading="lazy" /></div>
-          <div class="screen-cap">Calendar — empty state</div>
+        <a class="screen-tile" href="images/science37/screenshots/01-calendar-day.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/01-calendar-day.png" alt="Calendar — multi-provider day view" loading="lazy" /></div>
+          <div class="screen-cap">Calendar — multi-provider day view</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/02-calendar-filtered.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/02-calendar-filtered.png" alt="Calendar with provider chip" loading="lazy" /></div>
-          <div class="screen-cap">Calendar — filtered view</div>
+        <a class="screen-tile" href="images/science37/screenshots/02-calendar-week.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/02-calendar-week.png" alt="Calendar — single-provider week view" loading="lazy" /></div>
+          <div class="screen-cap">Calendar — single-provider week view</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/03-optimize-day.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/03-optimize-day.png" alt="Optimize Day modal" loading="lazy" /></div>
+        <a class="screen-tile" href="images/science37/screenshots/03-optimize-day-modal.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/03-optimize-day-modal.png" alt="Optimize Day — drive-time engine, 1h 27m saved" loading="lazy" /></div>
           <div class="screen-cap">Optimize Day — drive-time engine</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/04-quick-book.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/04-quick-book.png" alt="Quick Book palette" loading="lazy" /></div>
-          <div class="screen-cap">Quick Book — ⌘K palette</div>
+        <a class="screen-tile" href="images/science37/screenshots/04-new-appt-filled.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/04-new-appt-filled.png" alt="New Appointment — auto-suggested form" loading="lazy" /></div>
+          <div class="screen-cap">New Appointment — auto-suggested form</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/05-new-appt.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/05-new-appt.png" alt="New Appointment screen" loading="lazy" /></div>
-          <div class="screen-cap">New Appointment — full form</div>
-        </a>
-        <a class="screen-tile" href="images/science37/screenshots/06-appt-reqs.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/06-appt-reqs.png" alt="Appointment Requests dashboard" loading="lazy" /></div>
+        <a class="screen-tile" href="images/science37/screenshots/05-appt-reqs-queue.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/05-appt-reqs-queue.png" alt="Appointment Requests queue" loading="lazy" /></div>
           <div class="screen-cap">Requests — triage queue</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/07-appt-reqs-panel.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/07-appt-reqs-panel.png" alt="Request panel with smart candidates" loading="lazy" /></div>
+        <a class="screen-tile" href="images/science37/screenshots/06-appt-req-side-panel.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/06-appt-req-side-panel.png" alt="Request side panel with smart candidates" loading="lazy" /></div>
           <div class="screen-cap">Request panel — smart candidates</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/08-provider-availability.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/08-provider-availability.png" alt="Provider Availability with coverage insights" loading="lazy" /></div>
+        <a class="screen-tile" href="images/science37/screenshots/07-provider-availability.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/07-provider-availability.png" alt="Provider Availability with coverage insights" loading="lazy" /></div>
           <div class="screen-cap">Availability — coverage insights</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/09-providers.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/09-providers.png" alt="Providers roster" loading="lazy" /></div>
+        <a class="screen-tile" href="images/science37/screenshots/08-providers-list.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/08-providers-list.png" alt="Providers roster" loading="lazy" /></div>
           <div class="screen-cap">Roster — the clinician network</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/10-audit-panel.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/10-audit-panel.png" alt="Audit panel" loading="lazy" /></div>
-          <div class="screen-cap">Audit — every change recorded</div>
+        <a class="screen-tile" href="images/science37/screenshots/09-appt-types.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/09-appt-types.png" alt="Appointment Types catalog" loading="lazy" /></div>
+          <div class="screen-cap">Appointment Types — protocol catalog</div>
         </a>
-        <a class="screen-tile" href="images/science37/screenshots/11-appt-detail.png" target="_blank" rel="noopener">
-          <div class="screen-thumb"><img src="images/science37/screenshots/11-appt-detail.png" alt="Appointment detail with role timeline" loading="lazy" /></div>
-          <div class="screen-cap">Appointment detail — role timeline</div>
+        <a class="screen-tile" href="images/science37/screenshots/10-protocol-auto-gen-tab.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/10-protocol-auto-gen-tab.png" alt="Protocol auto-gen — upcoming visit queue" loading="lazy" /></div>
+          <div class="screen-cap">Protocol auto-gen — upcoming queue</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/11-bulk-schedule-results.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/11-bulk-schedule-results.png" alt="Schedule all — bulk optimizer results" loading="lazy" /></div>
+          <div class="screen-cap">Schedule all — bulk optimizer results</div>
+        </a>
+        <a class="screen-tile" href="images/science37/screenshots/12-manual-resolve-modal.png" target="_blank" rel="noopener">
+          <div class="screen-thumb"><img src="images/science37/screenshots/12-manual-resolve-modal.png" alt="Manual Resolve modal with operational recommendations" loading="lazy" /></div>
+          <div class="screen-cap">Manual Resolve — operational recommendations</div>
         </a>
       </div>
 
@@ -278,19 +288,9 @@
       <div class="section-header">
         <span class="kicker">Outcomes</span>
         <h2>What changed, in numbers</h2>
-        <p>The metrics that justify the work — efficiency, headcount, scope of the system, and the operational model behind it.</p>
+        <p>Staff-to-participant ratios established by the prototype against the closest published benchmarks, and the modeled financial impact of building Science 37 around the optimizer engine.</p>
       </div>
       <div class="thesis-grid">
-        <div class="vert">
-          <div class="vert-icon">⚡</div>
-          <h3>+31%</h3>
-          <p>Scheduling efficiency at Science 37 — faster matching, fewer back-and-forths, drive-time-aware routing on every booking. Real-world career outcome.</p>
-        </div>
-        <div class="vert">
-          <div class="vert-icon">👥</div>
-          <h3>–50%</h3>
-          <p>Scheduling personnel at Science 37 — the work that used to need two schedulers per study now needs one. Real-world career outcome.</p>
-        </div>
         <div class="vert">
           <div class="vert-icon">🩺</div>
           <h3>1:42 CRC</h3>
@@ -300,6 +300,16 @@
           <div class="vert-icon">🚗</div>
           <h3>1:12 RN</h3>
           <p>Nurse-to-participant snapshot ratio in the prototype. Sits at the strict end of hospice nursing benchmarks (NHPCO 2024); no DCT operator publishes a comparable figure (peer-reviewed, Johnson &amp; Marsh 2023).</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">🩻</div>
+          <h3>1:71 INV</h3>
+          <p>Investigator-to-participant ratio in the prototype. No industry comparator exists — slice-based occupancy keeps INVs available only for the ~30 min mid-visit window protocol actually requires.</p>
+        </div>
+        <div class="vert">
+          <div class="vert-icon">💰</div>
+          <h3>$50–135M/yr</h3>
+          <p>Modeled total annual impact of an engine-first operating model: $1.7–3.2M/yr scheduler-side capacity reclaim plus $48–132M/yr metro-focus revenue uplift at a 6-metro footprint. Roughly 70–190% of Science 37's last-reported FY2022 revenue.</p>
         </div>
       </div>
 
@@ -359,7 +369,7 @@
         <p>Sr. Product Designer · Director of Product · Healthcare · AI</p>
       </div>
       <div class="contact">
-        <a href="mailto:harun@lycia.app">harun@lycia.app</a>
+        <a href="mailto:tuncellih@gmail.com">tuncellih@gmail.com</a>
         <a href="tel:+15175286306">+1 517 528 6306</a>
         <a href="https://www.linkedin.com/in/harun-tuncelli/" target="_blank" rel="noopener">LinkedIn</a>
       </div>

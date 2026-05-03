@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Optimizer Engine — An Operating-Model Proposal for Science 37</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #0B1B5C;
+    --primary: #3761EE;
+    --accent: #5BC25B;
+    --text: #212121;
+    --muted: #5F6368;
+    --soft: #8A8F9C;
+    --bg: #F4F6FB;
+    --card: #FFFFFF;
+    --border: #D7DBE4;
+    --pos: #1F8A4D;
+    --warn: #D68A1B;
+    --neg: #C0392B;
+    --chart-grid: #E6EAF2;
+    --before: #C0392B;
+    --after: #1F8A4D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--bg); line-height: 1.45; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 28px 36px 70px; }
+
+  /* Cover */
+  header.cover { background: linear-gradient(135deg, var(--ink) 0%, #1B2F8A 50%, var(--primary) 100%); color: #fff; padding: 48px 52px; border-radius: 12px; margin-bottom: 26px; page-break-after: always; }
+  .role-tag { font-size: 11px; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; opacity: 0.85; }
+  .cover h1 { font-size: 40px; font-weight: 900; line-height: 1.12; margin-top: 12px; max-width: 920px; }
+  .cover .sub { font-size: 17px; opacity: 0.92; margin-top: 14px; max-width: 880px; line-height: 1.55; }
+  .cover .meta { display: flex; gap: 28px; margin-top: 26px; font-size: 12px; opacity: 0.95; flex-wrap: wrap; }
+  .cover .meta b { font-weight: 900; }
+  .cover .integrity-note { margin-top: 26px; padding: 14px 16px; background: rgba(255,255,255,0.08); border-left: 3px solid var(--accent); border-radius: 4px; font-size: 12.5px; line-height: 1.55; opacity: 0.95; }
+
+  /* Section card */
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 28px 32px; margin-bottom: 18px; page-break-inside: avoid; }
+  .section.split { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .section.split .full { grid-column: 1 / -1; }
+  .section h2 { font-size: 22px; font-weight: 900; color: var(--ink); margin-bottom: 4px; }
+  .section .lead { font-size: 13px; color: var(--muted); margin-bottom: 18px; line-height: 1.55; }
+  .section h3 { font-size: 13px; font-weight: 900; letter-spacing: 1px; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; margin-top: 18px; }
+  .section h3:first-of-type { margin-top: 0; }
+  .section p { font-size: 13.5px; line-height: 1.62; color: var(--text); margin-bottom: 10px; }
+  .section ul { list-style: none; margin-bottom: 12px; }
+  .section li { padding-left: 20px; position: relative; margin-bottom: 8px; font-size: 13px; line-height: 1.55; }
+  .section li::before { content: '▸'; position: absolute; left: 0; top: 0; color: var(--primary); font-weight: 900; }
+  .section .quote { background: var(--bg); border-left: 3px solid var(--primary); padding: 14px 18px; font-style: italic; font-size: 13.5px; line-height: 1.6; color: var(--text); margin: 14px 0; border-radius: 0 4px 4px 0; }
+
+  /* Lede / exec summary */
+  .lede { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 26px 30px; margin-bottom: 26px; }
+  .lede h2 { font-size: 22px; font-weight: 900; color: var(--ink); margin-bottom: 12px; }
+  .lede p { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 10px; }
+  .lede .find-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .lede .find { background: var(--bg); border-left: 3px solid var(--primary); padding: 12px 14px; border-radius: 0 6px 6px 0; }
+  .lede .find b { color: var(--ink); font-weight: 900; display: block; font-size: 13px; margin-bottom: 4px; }
+  .lede .find span { font-size: 12.5px; color: var(--text); line-height: 1.5; }
+
+  /* Train analogy callout */
+  .analogy {
+    background: linear-gradient(135deg, #0B1B5C 0%, #2A3E9C 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px 34px;
+    margin-bottom: 26px;
+    page-break-inside: avoid;
+  }
+  .analogy .lbl { font-size: 11px; font-weight: 900; letter-spacing: 1.6px; opacity: 0.8; text-transform: uppercase; }
+  .analogy h2 { font-size: 22px; font-weight: 900; line-height: 1.3; margin-top: 8px; max-width: 900px; }
+  .analogy p { font-size: 14px; line-height: 1.65; margin-top: 14px; opacity: 0.95; max-width: 920px; }
+  .analogy .pull {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: rgba(91,194,91,0.16);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* Stat strip */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat { background: var(--bg); border-radius: 8px; padding: 14px 16px; }
+  .stat .v { font-size: 24px; font-weight: 900; color: var(--ink); line-height: 1; }
+  .stat .l { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .stat .src { font-size: 9.5px; color: var(--soft); margin-top: 6px; }
+
+  /* Before/After comparison */
+  .baf { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+  .baf-card { padding: 18px 20px; border-radius: 8px; border: 1px solid var(--border); }
+  .baf-card.before { background: #FBE9E7; border-color: #EFC1B8; }
+  .baf-card.after { background: #E6F3EA; border-color: #B8DCC2; }
+  .baf-card .tag { font-size: 10px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 6px; }
+  .baf-card.before .tag { color: var(--neg); }
+  .baf-card.after .tag { color: var(--pos); }
+  .baf-card h4 { font-size: 14px; font-weight: 900; color: var(--ink); margin-bottom: 8px; line-height: 1.35; }
+  .baf-card p { font-size: 12.5px; line-height: 1.55; color: var(--text); margin-bottom: 6px; }
+
+  /* Workflow flow diagram (CSS flex chain) */
+  .flow {
+    background: var(--bg); border-radius: 8px;
+    padding: 22px 18px; margin: 14px 0;
+  }
+  .flow .ct { font-size: 11px; font-weight: 900; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; }
+  .flow-chain { display: flex; align-items: stretch; gap: 6px; flex-wrap: nowrap; }
+  .flow-step {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px; line-height: 1.4;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 70px;
+  }
+  .flow-step .lbl { font-size: 9px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; color: var(--soft); margin-bottom: 4px; }
+  .flow-step .txt { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .flow-step.bottleneck { background: #FBE9E7; border-color: #EFC1B8; }
+  .flow-step.bottleneck .lbl { color: var(--neg); }
+  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--soft); font-weight: 900; font-size: 18px; }
+  .flow .cs { font-size: 11px; color: var(--soft); margin-top: 12px; line-height: 1.4; }
+
+  /* Hub diagram (after) */
+  .hub-wrap { background: var(--bg); border-radius: 8px; padding: 22px 18px; margin: 14px 0; }
+  .hub-wrap .ct { font-size: 11px; font-weight: 900; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; }
+  .hub {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+  .hub-col { display: flex; flex-direction: column; gap: 8px; }
+  .hub-col .h-lbl { font-size: 9px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .hub-input, .hub-output {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11.5px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .hub-input { border-left: 3px solid var(--primary); }
+  .hub-output { border-left: 3px solid var(--accent); }
+  .hub-core {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(11,27,92,0.22);
+  }
+  .hub-core .core-lbl { font-size: 10px; font-weight: 900; letter-spacing: 1.4px; opacity: 0.85; text-transform: uppercase; }
+  .hub-core .core-name { font-size: 18px; font-weight: 900; margin-top: 6px; line-height: 1.25; }
+  .hub-core .core-sub { font-size: 11.5px; margin-top: 8px; opacity: 0.92; line-height: 1.45; }
+  .hub-wrap .cs { font-size: 11px; color: var(--soft); margin-top: 12px; line-height: 1.4; }
+
+  /* Table */
+  table.data { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0; }
+  table.data th { background: var(--bg); color: var(--ink); font-weight: 900; text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+  table.data td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.data td.before { color: var(--neg); font-weight: 700; }
+  table.data td.after { color: var(--pos); font-weight: 700; }
+
+  /* Chart wrappers */
+  .chart-wrap { background: var(--bg); border-radius: 8px; padding: 16px 18px 12px; margin: 14px 0; }
+  .chart-wrap .ct { font-size: 11px; font-weight: 900; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .chart-wrap .cs { font-size: 11px; color: var(--soft); margin-top: 6px; line-height: 1.4; }
+  .chart-wrap canvas { max-height: 280px; }
+  .chart-wrap.tall canvas { max-height: 340px; }
+
+  /* Recap card */
+  .recap {
+    background: linear-gradient(135deg, var(--ink) 0%, #1B2F8A 50%, var(--primary) 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-top: 18px;
+    page-break-inside: avoid;
+  }
+  .recap .lbl { font-size: 11px; font-weight: 900; letter-spacing: 1.6px; opacity: 0.85; text-transform: uppercase; }
+  .recap h2 { font-size: 28px; font-weight: 900; line-height: 1.2; margin-top: 10px; max-width: 880px; }
+  .recap .sub { font-size: 14px; opacity: 0.9; margin-top: 12px; max-width: 880px; line-height: 1.55; }
+  .recap .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px;
+  }
+  .recap .ben {
+    background: rgba(255,255,255,0.10);
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+  }
+  .recap .ben b { display: block; font-weight: 900; font-size: 12px; letter-spacing: 0.5px; margin-bottom: 6px; opacity: 0.85; text-transform: uppercase; }
+  .recap .ben .v { font-size: 22px; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+  .recap .ben .l { font-size: 11.5px; opacity: 0.9; line-height: 1.5; }
+  .recap .closing-line {
+    margin-top: 22px;
+    padding: 16px 20px;
+    background: rgba(91,194,91,0.18);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 14px; line-height: 1.55; font-weight: 700;
+  }
+
+  /* Sources footer */
+  .sources { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-top: 18px; }
+  .sources h2 { font-size: 18px; font-weight: 900; color: var(--ink); margin-bottom: 12px; }
+  .sources p { font-size: 12px; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .sources ul { list-style: none; padding-left: 0; }
+  .sources li { padding-left: 16px; position: relative; margin-bottom: 6px; font-size: 11.5px; line-height: 1.5; color: var(--text); }
+  .sources li::before { content: '▸'; position: absolute; left: 0; top: 0; color: var(--primary); font-weight: 900; }
+  .sources li b { color: var(--ink); font-weight: 900; }
+
+  /* Inline cite */
+  sup.cite { color: var(--primary); font-weight: 700; font-size: 10px; padding: 0 1px; }
+
+  /* Section break */
+  .section-break { page-break-before: always; }
+
+  @media print {
+    body { background: #fff; }
+    .container { max-width: 100%; padding: 0; }
+    .section, .lede, .sources, .analogy, .recap { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ───────────────────────── COVER ───────────────────────── -->
+<header class="cover">
+  <div class="role-tag">Operating-Model Proposal · Science 37</div>
+  <h1>The Optimizer Engine: A Proposal to Rebuild Science 37 Around Its Core.</h1>
+  <div class="sub">Science 37 was built around a study/trial management platform with scheduling bolted on. The case to invert that order — to make the optimizer engine the center of the company, with platforms, hiring, and footprint as downstream consequences — sized against verified DCT market financials.</div>
+  <div class="meta">
+    <span><b>Author:</b> Harun Tuncelli</span>
+    <span><b>Prepared:</b> May 2026</span>
+    <span><b>Subject:</b> Science 37 operating-model pivot · Visit Operations Platform as substrate</span>
+  </div>
+  <div class="integrity-note">
+    <b>Citation integrity:</b> Every financial figure traces to the May 2026 <i>DCT Market Analysis &amp; Scheduling Tool ROI</i> deliverable, which sources its data from SEC filings, peer-reviewed papers (Tufts CSDD–Medable PACT, PMC CRC workload survey), BLS wage data, BCC Research, Mordor Intelligence, and Science 37's own quarterly press releases. Modeled estimates are clearly labeled. The Visit Operations Platform prototype's design metrics (slice-based occupancy, 80-mile drive radius, 6-metro footprint, 1:42 CRC ratio) come from the running prototype; the cycle-time uplift figures derive from peer-reviewed Tufts/PACT data, not measured prototype telemetry.
+  </div>
+</header>
+
+<!-- ───────────────────────── EXECUTIVE THESIS ───────────────────────── -->
+<div class="analogy">
+  <div class="lbl">Thesis</div>
+  <h2>When the first trains were built, no one started by designing the carriages. They built the engine — because without it, everything else is just architecture for a thing that doesn't move.</h2>
+  <p>Science 37, today, is the carriages. The brand, the patient app, the sponsor portals, the trial-management platform — beautifully appointed cars on a track with no engine of its own. The scheduling tool is bolted on as a feature. The result is a company whose cost structure was built to look like coverage and whose execution capacity collapsed under the weight of that performance.</p>
+  <div class="pull">The proposal: rebuild Science 37 around the optimizer engine. Make every other system — pharma intake, recruitment, hiring, marketing — a downstream consequence of what the engine needs to operate at maximum throughput in dense metro clusters.</div>
+</div>
+
+<!-- ───────────────────────── EXECUTIVE SUMMARY ───────────────────────── -->
+<div class="lede">
+  <h2>Executive summary</h2>
+  <p>
+    Science 37 collapsed from a <b>$1.05B SPAC enterprise value (May 2021)</b><sup class="cite">[1]</sup> to a <b>$38M equity sale to eMed (January 2024)</b><sup class="cite">[2]</sup> — roughly 96% of paper value destroyed in 33 months. The proximate cause was operating loss: <b>$152M FY2022 operating loss on $70.1M revenue</b><sup class="cite">[3]</sup>. The structural cause was a <b>cost base built for a generalist 50-state footprint while the operating reality required dense, metro-clustered execution</b>. The April 2023 RIF (~140 positions, $24M annualized cash savings target) confirmed cost — not demand — was the binding constraint<sup class="cite">[4]</sup>.
+  </p>
+  <p>
+    The Visit Operations Platform prototype is the operational counter-proof: <b>6 metro clusters, 80-mile cross-cover drive radius, 126 staff, 1,000 participants, slice-based provider occupancy, hard-fail auto-scheduling</b>. This document makes the case for treating the prototype's optimizer engine not as a tool but as the <b>operating-model substrate</b> — the central organizing principle for how Science 37 hires, deploys, and bills.
+  </p>
+  <div class="find-grid">
+    <div class="find"><b>Annual financial uplift</b><span><b>$1.7M–$3.2M/yr</b> in scheduler-side capacity reclaim<sup class="cite">[5]</sup>, plus <b>$48M–$132M/yr</b> in metro-focus revenue uplift at the 6-metro footprint<sup class="cite">[6]</sup>. Combined annual opportunity: <b>$50M–$135M/yr</b> at scaled deployment — roughly 70%–190% of Sci 37's last-reported FY2022 revenue.</span></div>
+    <div class="find"><b>Operating model unlock</b><span>Same staff base serves <b>~30% more participants per metro</b> via slice-based occupancy + drive-aware routing<sup class="cite">[6]</sup>. Hiring decisions become engine-informed (where, when, FT vs PT). Sponsor pitch shifts from "we cover everywhere" to <b>"we deliver at metro density with proven cycle-time advantage."</b></span></div>
+  </div>
+</div>
+
+<!-- ───────────────────────── 1. CURRENT STATE ───────────────────────── -->
+<div class="section">
+  <h2>1 · The current operating model — what failed</h2>
+  <p class="lead">Science 37's pre-collapse workflow was sequential, study-platform-first, and geographically diffuse. Each stage compounded the cost basis of the next.</p>
+
+  <div class="flow">
+    <div class="ct">Figure 1 · The current sequential workflow (study-platform-first)</div>
+    <div class="flow-chain">
+      <div class="flow-step"><div class="lbl">Step 1</div><div class="txt">Pharma sponsor reaches out</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="lbl">Step 2</div><div class="txt">Trial details captured in study platform</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step bottleneck"><div class="lbl">Bottleneck</div><div class="txt">Search for nurses across all 50 states</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step bottleneck"><div class="lbl">Bottleneck</div><div class="txt">Recruit participants to match available staff</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="lbl">Step 5</div><div class="txt">Begin scheduling — visit-by-visit</div></div>
+    </div>
+    <div class="cs">Each stage runs after the prior one completes. Scheduling — the operational unit that determines whether a trial actually executes — is the last consideration, not the first. Cost is incurred upstream regardless of whether scheduling can support the staffed footprint.</div>
+  </div>
+
+  <h3>The financial signal · what the cost-base mismatch produced</h3>
+  <div class="stats">
+    <div class="stat"><div class="v">$1.05B</div><div class="l">SPAC enterprise value (May 2021)</div><div class="src">[1]</div></div>
+    <div class="stat"><div class="v">$38M</div><div class="l">eMed acquisition equity (Jan 2024)</div><div class="src">[2]</div></div>
+    <div class="stat"><div class="v">~96%</div><div class="l">Paper value destroyed in 33 months</div><div class="src">derived [1,2]</div></div>
+    <div class="stat"><div class="v">~460</div><div class="l">FTEs at year-end 2022</div><div class="src">[3]</div></div>
+  </div>
+
+  <div class="chart-wrap tall">
+    <div class="ct">Figure 2 · Sci 37 quarterly revenue trajectory (Q1 2022 – Q3 2023)</div>
+    <canvas id="chartRevenue"></canvas>
+    <div class="cs">Sources: Sci 37 quarterly press releases<sup class="cite">[7][8][9]</sup>; FY2022 10-K<sup class="cite">[3]</sup>. Revenue declined every quarter through delisting; net bookings (forward indicator) fell 52% in FY2022. The April 2023 RIF cut ~140 positions (~30% of workforce) targeting $24M annualized savings<sup class="cite">[4]</sup>.</div>
+  </div>
+
+  <h3>What the workflow cost · structural diagnosis</h3>
+  <ul>
+    <li><b>Coverage was sold; density was needed.</b> Sci 37 marketed "60+ countries" and "all 50 US states"<sup class="cite">[10]</sup> while operating reality required clinicians clustered close enough to participants for cost-effective home visits. The geographic surface area produced low-density paperwork coverage at full staffing cost.</li>
+    <li><b>Recruitment ran on a national pool.</b> Targeting nurses across 50 states means competing against the entire US labor market, with travel-time logistics absorbed into cost-of-service rather than designed out of it. SCRS reports CRC turnover at <b>2–3× pre-pandemic rates</b> with <b>7 jobs per 1 candidate</b><sup class="cite">[11]</sup> — a national strategy is fighting that headwind everywhere at once.</li>
+    <li><b>Scheduling was the last consideration.</b> The unit of work that determines billable trial throughput was treated as a downstream operational problem. The result: staff hired for paper coverage were under-utilized for billable visits, while in-demand metros were under-staffed.</li>
+  </ul>
+</div>
+
+<!-- ───────────────────────── 2. PROPOSED MODEL ───────────────────────── -->
+<div class="section section-break">
+  <h2>2 · The proposed operating model — engine-first</h2>
+  <p class="lead">Invert the workflow. Make the optimizer engine the central organizing principle, with every other system feeding it inputs or consuming its outputs.</p>
+
+  <div class="hub-wrap">
+    <div class="ct">Figure 3 · The engine-first operating model</div>
+    <div class="hub">
+      <div class="hub-col">
+        <div class="h-lbl">Engine inputs</div>
+        <div class="hub-input">Patient app: visit windows, time prefs, preferred clinicians, address</div>
+        <div class="hub-input">Study platform: protocol, study windows, role requirements per visit</div>
+        <div class="hub-input">Provider calendars: RN / CRC / INV availability, time-off, locations</div>
+        <div class="hub-input">Roster: licensure (eNLC compact-aware), study training, role</div>
+        <div class="hub-input">Logistics: kit ETAs, drive-time graph, 80-mile cross-cover radius</div>
+      </div>
+      <div class="hub-core">
+        <div class="core-lbl">The optimizer engine</div>
+        <div class="core-name">Slice-aware · drive-aware · continuity-aware · hard-fail</div>
+        <div class="core-sub">Bulk-curates appointments at protocol-window granularity. Books each role only for the minutes it's actually needed (CRC ~20 min, INV ~30 min, not the full 60–120 min envelope). Refuses incomplete bookings. Surfaces concrete Manual Resolve recommendations with named staff + named ask + date+time.</div>
+      </div>
+      <div class="hub-col">
+        <div class="h-lbl">Engine outputs</div>
+        <div class="hub-output">Auto-curated visit calendar (design target: ~95% engine-resolved)</div>
+        <div class="hub-output">Per-RN drive-optimized day routes (2-opt local search)</div>
+        <div class="hub-output">Continuity-of-care matching (preferred clinician retained across visits)</div>
+        <div class="hub-output">Capacity signals → hiring decisions (where to add FT vs PT)</div>
+        <div class="hub-output">Operations dashboard → sponsor SLA reporting</div>
+      </div>
+    </div>
+    <div class="cs">All five inputs flow into the engine; the engine produces five categories of operational output. Every other system in the company is either an input source or a consumer of engine output.</div>
+  </div>
+
+  <h3>The five operational invariants the engine enforces</h3>
+  <ul>
+    <li><b>Slice-based provider occupancy.</b> CRC pool throughput rises ~3× over full-envelope booking. The same coordinator can be on three concurrent visits' beginnings rather than blocked for a single full visit duration.</li>
+    <li><b>80-mile cross-cover drive radius.</b> Filters out paper-eligible matches (e.g., NJ-resident RN compact-licensed in FL booked for a Miami visit) that are operationally absurd. License compliance ≠ operational feasibility; the engine enforces both.</li>
+    <li><b>Hard-fail auto-scheduling.</b> Bulk schedule refuses partial bookings. If the protocol needs RN + CRC + INV and any role is unfillable, the visit stays in the queue — never produces an em-dashed booking that the coordinator has to clean up post-hoc.</li>
+    <li><b>Concrete Manual Resolve recommendations.</b> Every unschedulable item surfaces a card with a specific date inside the protocol window, a specific time, named RN/CRC/INV, and a specific ask (OT-extension, PTO-day cover call, cross-train, or participant-flex). Manual handling is one phone call and one click.</li>
+    <li><b>Bulk scheduling at protocol-window granularity.</b> Because the engine knows enrollment dates, protocol windows, role requirements per visit type, and provider availability — it can curate <b>hundreds of appointments at once</b> instead of one-by-one. The scheduler's role shifts from booking to exception management.</li>
+  </ul>
+</div>
+
+<!-- ───────────────────────── 3. BEFORE / AFTER ───────────────────────── -->
+<div class="section">
+  <h2>3 · Before / after — operational comparison</h2>
+  <p class="lead">Side-by-side, what changes when the engine becomes the center of the operation.</p>
+
+  <table class="data">
+    <thead><tr><th>Dimension</th><th>Current model (study-platform-first)</th><th>Engine-first model</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Workflow order</b></td>
+        <td class="before">Sequential: pharma → trial → nurses → recruit → schedule</td>
+        <td class="after">Engine-resolved: protocol windows + roster + locations bulk-scheduled at intake</td>
+      </tr>
+      <tr>
+        <td><b>Geographic footprint</b></td>
+        <td class="before">All 50 states marketed; cost base proportional to surface area</td>
+        <td class="after">6 metros covering ~60–70% of US population; 80-mile cross-cover</td>
+      </tr>
+      <tr>
+        <td><b>Recruitment strategy</b></td>
+        <td class="before">National nurse pool; competes with all US healthcare for hires</td>
+        <td class="after">Targeted metro hires + targeted patient advertising in same metros</td>
+      </tr>
+      <tr>
+        <td><b>Coordinator (CRC) capacity</b></td>
+        <td class="before">Booked for full 60–120 min visit envelope; ~50% can't finish in 40 hrs<sup class="cite">[12]</sup></td>
+        <td class="after">Booked for ~20 min slice at visit start; same coordinator on 3× more concurrent visits</td>
+      </tr>
+      <tr>
+        <td><b>Scheduling unit</b></td>
+        <td class="before">One visit at a time; spreadsheet-of-licensures workflow</td>
+        <td class="after">Hundreds of visits bulk-curated; engine handles 95% (design target)</td>
+      </tr>
+      <tr>
+        <td><b>Failure mode</b></td>
+        <td class="before">Em-dashed partial bookings to clean up; cascading reschedules</td>
+        <td class="after">Hard-fail to Manual Resolve queue with concrete one-click fix</td>
+      </tr>
+      <tr>
+        <td><b>Hiring decisions</b></td>
+        <td class="before">Forecast by territory headcount target; reactive to capacity gaps</td>
+        <td class="after">Engine surfaces capacity signals: where, when, FT vs PT, role mix</td>
+      </tr>
+      <tr>
+        <td><b>Sponsor pitch</b></td>
+        <td class="before">"We cover 60+ countries and all 50 US states"<sup class="cite">[10]</sup></td>
+        <td class="after">"We deliver at metro density with proven cycle-time advantage"</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ───────────────────────── 4. FINANCIAL IMPACT ───────────────────────── -->
+<div class="section section-break">
+  <h2>4 · Financial impact</h2>
+  <p class="lead">Two quantified financial benefits — both modeled with cited inputs from the May 2026 DCT Market Analysis. One is cost-side (scheduler reclaim), one is revenue-side (metro-focus uplift). The revenue-side dominates by an order of magnitude.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="v">$1.7M–$3.2M</div><div class="l">Scheduler-side annual capacity reclaim</div><div class="src">[5]</div></div>
+    <div class="stat"><div class="v">$48M–$132M</div><div class="l">Metro-focus annual revenue uplift (6 metros)</div><div class="src">[6]</div></div>
+    <div class="stat"><div class="v">~$50M–$135M</div><div class="l">Combined annual opportunity at scaled deployment</div><div class="src">derived [5,6]</div></div>
+    <div class="stat"><div class="v">13.7%</div><div class="l">DCT market CAGR 2025–2030 ($8.8B → $18.8B)</div><div class="src">[13]</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="ct">Figure 4 · Annual financial impact · scheduler savings + metro-focus uplift</div>
+    <canvas id="chartImpact"></canvas>
+    <div class="cs">Modeled estimate per DCT Market Analysis. Scheduler savings: $1.7M–$3.2M/yr at Sci 37's last-reported 460-FTE headcount<sup class="cite">[3,5]</sup>. Metro-focus uplift: $48M (conservative) / $84M (mid) / $132M (aggressive) at 6 actively-staffed metros<sup class="cite">[6]</sup>, derived from Tufts CSDD–Medable PACT cycle-time data<sup class="cite">[14]</sup> and median pivotal Phase 3 cost figures<sup class="cite">[15]</sup>.</div>
+  </div>
+
+  <h3>Scheduler-side savings · how the math works</h3>
+  <p>The peer-reviewed CRC workload survey<sup class="cite">[12]</sup> establishes that a CRC simultaneously supports <b>7.6 studies × 3.7 investigators</b> with <b>~50% unable to finish in 40 hours</b>. Modeled scheduler-time reclaim of <b>10–18 hours/CRC/week</b> at the Salary.com $34/hr CRC benchmark<sup class="cite">[16]</sup> = <b>$17K–$31K per CRC per year</b>. Scaled to ~50 CRC-equivalent FTEs at Sci 37's 460-employee headcount (plus research-nurse scheduling overhead): <b>$1.7M–$3.2M/yr</b>.</p>
+
+  <h3>Metro-focus revenue uplift · how the math works</h3>
+  <p>Tufts CSDD–Medable PACT (peer-reviewed)<sup class="cite">[14]</sup> measured <b>14× DCT ROI in Phase 3</b> ($39M return / $3M invest) and <b>up to 360 days of cycle-time reduction</b>. Median pivotal Phase 3 trial cost is <b>$48M</b> with median per-patient cost <b>$41,117</b><sup class="cite">[15]</sup>. With slice-based occupancy enabling <b>~30% more participants per metro on the same staff base</b>, a metro running 2–3 active Phase 3 protocols captures <b>$8M–$22M/yr</b> in cycle-time-driven uplift. Across 6 metros at the prototype footprint: <b>$48M–$132M/yr</b>.</p>
+
+  <div class="quote">The lower bound alone — $48M/yr — is twice Sci 37's announced $24M RIF cash-savings target<sup class="cite">[4]</sup>, and unlike RIF savings, it is revenue-side and compounds through gross margin.</div>
+</div>
+
+<!-- ───────────────────────── 5. STAFF EFFICIENCY ───────────────────────── -->
+<div class="section">
+  <h2>5 · Staff efficiency — what the engine extracts per FTE</h2>
+  <p class="lead">The engine's design choices each translate into a specific efficiency lever. Together they produce the throughput multiplier the financial model depends on.</p>
+
+  <div class="chart-wrap">
+    <div class="ct">Figure 5 · CRC pool throughput · full-envelope booking vs slice-based occupancy</div>
+    <canvas id="chartCRC"></canvas>
+    <div class="cs">Conceptual representation of the v1 vs v2 design difference. Full-envelope booking (the v1 bug) blocked the CRC for the entire 60–120 min visit window — producing 30+ stacked CRC bars at peak hours and starving capacity catastrophically. Slice-based occupancy books CRC only for the ~20 min at visit start they're actually needed, raising pool throughput by ~3× on the same headcount. Verified in the running prototype.</div>
+  </div>
+
+  <table class="data">
+    <thead><tr><th>Efficiency lever</th><th>Mechanism</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Slice-based occupancy</b></td>
+        <td>CRC booked ~20 min at visit start; INV ~30 min mid-visit (not full envelope)</td>
+        <td class="after">~3× CRC pool throughput · same staff covers more visits</td>
+      </tr>
+      <tr>
+        <td><b>Drive-time route optimization</b></td>
+        <td>2-opt local search per RN per day, anchored to home address</td>
+        <td class="after">10–20 min between sequential appointments · ~30 min/RN/day reclaimed</td>
+      </tr>
+      <tr>
+        <td><b>Bulk scheduling at protocol windows</b></td>
+        <td>Engine knows enrollment dates + windows + role needs → curates hundreds at once</td>
+        <td class="after">Scheduler's role shifts from booking to exception management</td>
+      </tr>
+      <tr>
+        <td><b>Hard-fail auto-schedule</b></td>
+        <td>Refuses partial bookings when any required role is unfillable</td>
+        <td class="after">Zero em-dashed bookings to clean up post-hoc</td>
+      </tr>
+      <tr>
+        <td><b>Concrete Manual Resolve</b></td>
+        <td>Each unschedulable item: named staff + date+time + named ask</td>
+        <td class="after">One phone call + one click per exception (vs 5–15 min deliberation)</td>
+      </tr>
+      <tr>
+        <td><b>Continuity-of-care matching</b></td>
+        <td>Preferred-clinician tier in the candidate ranker</td>
+        <td class="after">Same RN sees the same participant across visits where possible</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The throughput multiplier from these levers is what enables the metro-focus revenue uplift. Without the engine, the lean staff-to-participant ratios that make metro focus economically attractive would produce em-dashes and missed visits. With the engine, those same ratios become the operating leverage.</p>
+</div>
+
+<!-- ───────────────────────── 6. STAFF-TO-PARTICIPANT RATIOS ───────────────────────── -->
+<div class="section">
+  <h2>6 · Staff-to-participant ratios · the lean multiplier</h2>
+  <p class="lead">Two ratios summarize the operating-model shift: <b>CRC-to-participant</b> and <b>RN-to-participant</b>. Neither has a published industry standard — for CRCs, no professional association has formalized one (sites cite 1:15–1:30 anecdotally); for RNs in decentralized clinical research, the absence is peer-reviewed<sup class="cite">[17]</sup>. The prototype establishes both ratios in lieu of a benchmark; this section places them against the closest defensible adjacent data.</p>
+
+  <h3>Coordinator (CRC) ratio · 1:42 vs site-based 1:15–1:30</h3>
+  <div class="chart-wrap">
+    <div class="ct">Figure 6 · CRC : participant ratio · industry anecdote vs Visit Operations Platform prototype</div>
+    <canvas id="chartRatio"></canvas>
+    <div class="cs">Industry anecdotal range: 1:15–1:30 CRC-to-participant (no published association standard exists<sup class="cite">[5]</sup>). Prototype: 1:42 (24 CRCs supporting 1,000 participants across 6 metros). The lean ratio is enabled by slice-based occupancy + bulk scheduling + concrete Manual Resolve — without those, the same ratio would produce missed visits and burnout.</div>
+  </div>
+
+  <h3>Nursing (RN) ratio · 1:12 vs adjacent in-home and research-nursing benchmarks</h3>
+  <div class="chart-wrap">
+    <div class="ct">Figure 7 · RN : participant ratio · prototype vs adjacent in-home nursing and clinical-research-nurse benchmarks</div>
+    <canvas id="chartRN"></canvas>
+    <div class="cs">No DCT operator publishes a snapshot active-RN to active-participant ratio. Prototype: 1:12 (84 RNs — 80 standard + 4 pediatric — supporting 1,000 participants across 6 metros). Adjacent benchmarks: hospice nursing<sup class="cite">[20]</sup> (closest in-home analogue); home-health caseload<sup class="cite">[21]</sup>; site-based oncology clinical-research-nurse caseload<sup class="cite">[19]</sup>.</div>
+  </div>
+
+  <p><b>The honest framing:</b> no industry RN-to-participant standard exists for clinical trials, decentralized or otherwise (Johnson &amp; Marsh, peer-reviewed literature review, 2023)<sup class="cite">[17]</sup>. The only DCT-operator nurse-staffing figure traceable to a primary source is IQVIA's published case study of <b>24 nurses conducting 389 home visits in one program</b><sup class="cite">[18]</sup> — a per-engagement metric, not a snapshot ratio. Science 37 itself does not disclose a snapshot ratio: the corporate "150+ research-grade nurses" figure is undated marketing<sup class="cite">[10]</sup>, and the FY2022 10-K describes nurses as <i>third parties</i> outside the 460 W-2 headcount<sup class="cite">[3]</sup>. <b>The prototype establishes a benchmark rather than matching one.</b></p>
+
+  <p>Placed against adjacent in-home nursing models, <b>1:12 sits at the strict end of hospice caseload benchmarks</b> — NHPCO's 2024 framework cites Multi-View's "excellent" range of 12–14 patients per RN<sup class="cite">[20]</sup>. Hospice is the closest in-home-visit nursing analogue, and the prototype is structurally <i>lighter</i> than that benchmark because DCT visits are protocol-event-driven (every 2–8 weeks per study window) rather than the weekly cadence hospice and home-health caseloads imply<sup class="cite">[21]</sup>. Against site-based oncology research nursing — the closest research-nurse comparator — the Wichita CCOP peer-reviewed acuity study reports <b>~86 on-study patients per CRN-FTE</b><sup class="cite">[19]</sup>; DCT visits are higher-touch (drive + in-home procedure + chain-of-custody), so a structurally tighter ratio is operationally expected.</p>
+
+  <h3>What the lean ratios buy</h3>
+  <ul>
+    <li><b>Operating leverage at constant staff cost.</b> Each CRC supports 1.4–2.8× more participants than the site-based anecdote; each RN runs at the strict end of hospice caseload norms while doing structurally lighter (event-driven) work — together this translates to lower clinical-staff cost per billable visit.</li>
+    <li><b>Retention as a margin lever for both roles.</b> SCRS reports CRC turnover at 2–3× pre-pandemic rates with 6–12 month recovery per departure<sup class="cite">[11]</sup>. The same dynamic applies to mobile research nurses — clinical research nursing has a defined competency framework but no published staffing standard<sup class="cite">[17]</sup>. An engine that absorbs the 50%-can't-finish-in-40-hours overflow<sup class="cite">[12]</sup> is a turnover-prevention investment for both roles.</li>
+    <li><b>Establishing the benchmark is itself the moat.</b> Because no DCT operator publishes a snapshot RN ratio<sup class="cite">[17]</sup>, the operator that <i>can</i> publish defensible operational ratios — backed by an engine that produces them as instrumented output — controls the conversation with sponsors and regulators.</li>
+    <li><b>Investigator slice extends the same logic.</b> Prototype runs 1:71 INV ratio (14 INVs supporting 1,000 participants); slice-based occupancy keeps INVs available for the ~30 min mid-visit window where their attention is actually required by protocol.</li>
+  </ul>
+</div>
+
+<!-- ───────────────────────── 7. FUTURE STATE ───────────────────────── -->
+<div class="section section-break">
+  <h2>7 · The future state — engine extends beyond scheduling</h2>
+  <p class="lead">Once the engine becomes the company's operational center of gravity, its scope naturally expands. The same data and matching primitives that solve scheduling can solve hiring, capacity planning, and sponsor pricing.</p>
+
+  <div class="baf">
+    <div class="baf-card before">
+      <div class="tag">Today's question</div>
+      <h4>Where do we hire next?</h4>
+      <p>Answered by territory headcount targets and reactive capacity gaps. Forecasts are aspirational; corrections are slow.</p>
+    </div>
+    <div class="baf-card after">
+      <div class="tag">Engine-informed</div>
+      <h4>Engine surfaces hiring signals continuously</h4>
+      <p>Per-metro capacity utilization, role mix gaps, FT vs PT marginal value, candidate evaluation against expected throughput contribution.</p>
+    </div>
+  </div>
+
+  <div class="baf">
+    <div class="baf-card before">
+      <div class="tag">Today's question</div>
+      <h4>What sponsor SLA should we commit to?</h4>
+      <p>Negotiated against historical performance averages and best-effort estimates from the operations team.</p>
+    </div>
+    <div class="baf-card after">
+      <div class="tag">Engine-informed</div>
+      <h4>SLA priced against engine-modeled feasibility</h4>
+      <p>For a given protocol + enrollment target + metro mix, the engine simulates expected cycle time and resource burn. Sponsor pricing reflects realistic delivery, not heroic estimates.</p>
+    </div>
+  </div>
+
+  <div class="baf">
+    <div class="baf-card before">
+      <div class="tag">Today's question</div>
+      <h4>How do we keep nurses on the platform?</h4>
+      <p>HR-driven retention programs, separate from operational scheduling. Burnout signals reach managers reactively.</p>
+    </div>
+    <div class="baf-card after">
+      <div class="tag">Engine-informed</div>
+      <h4>Engine balances workload as a first-class objective</h4>
+      <p>Drive-time minimization, equitable visit distribution, continuity-of-care preferences — all tunable engine objectives. Retention is operational, not just HR.</p>
+    </div>
+  </div>
+
+  <p>The compounding effect: an engine that owns scheduling produces the data needed to own hiring, which produces the data needed to own sponsor pricing, which produces the data needed to own portfolio strategy. <b>Each layer's quality is bounded by the layer below it.</b> The engine is the foundation.</p>
+</div>
+
+<!-- ───────────────────────── 8. RECAP ───────────────────────── -->
+<div class="recap">
+  <div class="lbl">Recommendation · the recap</div>
+  <h2>Rebuild Science 37 around the optimizer engine. Make every other system a downstream consequence.</h2>
+  <div class="sub">The Visit Operations Platform prototype is not a scheduling feature — it is the operational substrate the company should be designed around. The financial case below is conservative; it does not include the second-order benefits of engine-informed hiring, sponsor pricing, or sponsor-trust improvements from cycle-time predictability.</div>
+
+  <div class="grid">
+    <div class="ben">
+      <b>Financial uplift</b>
+      <div class="v">$50M–$135M/yr</div>
+      <div class="l">Combined annual opportunity at scaled deployment. Scheduler-side reclaim ($1.7M–$3.2M/yr) plus metro-focus revenue uplift ($48M–$132M/yr at 6 metros).</div>
+    </div>
+    <div class="ben">
+      <b>Staff efficiency</b>
+      <div class="v">~3× CRC throughput</div>
+      <div class="l">Slice-based occupancy raises CRC pool throughput ~3× over full-envelope booking. Drive-aware routing reclaims ~30 min/RN/day. Hard-fail eliminates em-dashed cleanup work.</div>
+    </div>
+    <div class="ben">
+      <b>Lean staffing ratios</b>
+      <div class="v">1:42 CRC · 1:12 RN</div>
+      <div class="l">CRC ratio 1.4–2.8× leaner than the 1:15–1:30 site-based anecdote. RN ratio 1:12 sits at the strict end of hospice nursing benchmarks (NHPCO/Multi-View "excellent") — and structurally lighter, since DCT visits are event-driven, not weekly. No DCT operator publishes a comparable snapshot.</div>
+    </div>
+    <div class="ben">
+      <b>Operating model</b>
+      <div class="v">6 metros, 80 mi</div>
+      <div class="l">Dense metro execution covers ~60–70% of US population. Sponsor pitch becomes "metro density + cycle-time advantage" instead of "50-state coverage."</div>
+    </div>
+    <div class="ben">
+      <b>Cycle time</b>
+      <div class="v">Up to 360 days</div>
+      <div class="l">Tufts/PACT peer-reviewed Phase 3 cycle-time reduction upper bound when DCT-enabled. Each 30-day acceleration on a $48M Phase 3 trial = ~$4M revenue acceleration.</div>
+    </div>
+    <div class="ben">
+      <b>Future scope</b>
+      <div class="v">Hiring · pricing · retention</div>
+      <div class="l">Engine-informed hiring decisions, SLA pricing against modeled feasibility, retention as a tunable engine objective. Each layer's quality is bounded by the engine's quality.</div>
+    </div>
+  </div>
+
+  <div class="closing-line">Without an optimizer engine at its core, Science 37 is — in the words of the thesis — a train pulled by 200 horses. With one, it is a fleet that runs on rails it laid itself.</div>
+</div>
+
+<!-- ───────────────────────── METHODOLOGY ───────────────────────── -->
+<div class="section">
+  <h2>Methodology · what is measured vs modeled</h2>
+  <p><b>Measured (sourced from primary documents):</b> Sci 37 quarterly financials, headcount, SPAC and eMed transaction terms, the April 2023 RIF specifics, the CRC workload distribution from the peer-reviewed PMC survey, BLS wage data, the Tufts/PACT ROI multiples and cycle-time reduction (peer-reviewed in <i>Therapeutic Innovation &amp; Regulatory Science</i>), median Phase 3 trial cost figures, and DCT market sizing from BCC Research and Mordor Intelligence.</p>
+  <p><b>Verified in the running prototype:</b> 6-metro footprint, 80-mile drive radius, 126-staff composition (80 RN + 24 CRC + 14 INV + 4 Ped RN + 4 Diet), 1,000-participant load, slice-based occupancy invariant (CRC ~20 min, INV ~30 min), hard-fail auto-scheduling behavior, concrete Manual Resolve recommendation cards, and the 1:42 CRC ratio.</p>
+  <p><b>Modeled (clearly labeled):</b> Per-CRC scheduling-hours-reclaimed estimate, per-metro revenue-uplift estimate, the ~30% participant-throughput uplift from slice-based occupancy at constant staff base, and any per-FTE figure that scales to Sci 37's 460-employee FY2022 headcount.</p>
+  <p><b>Design targets (not measured):</b> The ~95% engine-resolved scheduling rate is a design intent, not measured prototype telemetry. Real telemetry deployment is required to validate the production-median rate. The cycle-time uplift figures derive from peer-reviewed Tufts/PACT averages; per-metro variance is unmeasured.</p>
+  <p><b>Disclosed weakness:</b> The Tufts/PACT impact analysis is peer-reviewed but Medable-funded with Medable trial data as input. ROI multiples should be read as the upper end of independent expectations. Where the financial model uses these inputs, the conservative end of the range is foregrounded.</p>
+  <p><b>RN-ratio specific note:</b> Science 37 itself does not publish a snapshot RN-to-participant ratio. The corporate "150+ research-grade nurses" figure on the Research-Grade Nursing marketing page is undated; the FY2022 10-K describes nurses as third-party contractors outside the 460 W-2 employee count. Any ratio computed from these sources alone would be a fabrication and is excluded. The prototype's 1:12 is positioned against adjacent published nursing benchmarks (hospice, home-health, site-based oncology research nurse) — not against an unpublished Sci 37 number.</p>
+</div>
+
+<!-- ───────────────────────── SOURCES ───────────────────────── -->
+<div class="sources">
+  <h2>Source index</h2>
+  <p>This proposal is sized against the May 2026 <i>Science 37 — DCT Market Analysis &amp; Scheduling Tool ROI</i> deliverable, which contains the full citation index (19 numbered sources) with direct links to SEC filings, peer-reviewed papers, and primary-source URLs. The sources cited inline above (numbered [1]–[16]) are listed below with their primary-source anchors.</p>
+  <ul>
+    <li><b>[1]</b> Science 37 / LifeSci Acquisition II business combination · BusinessWire · May 7, 2021. SPAC EV ~$1.05B.</li>
+    <li><b>[2]</b> Science 37 / eMed merger announcement · GlobeNewswire · Jan 29, 2024. $5.75/share, ~$38M total equity.</li>
+    <li><b>[3]</b> Science 37 FY2022 10-K · SEC EDGAR CIK 1819113 · Mar 6, 2023. Revenue $70.1M; operating loss $(152.0)M; ~460 FTE at year-end.</li>
+    <li><b>[4]</b> Science 37 · "Three Global Centers of Excellence" / RIF announcement · GlobeNewswire · Apr 11, 2023. ~140 positions cut (~30% workforce); ~$24M annualized cash-savings target.</li>
+    <li><b>[5]</b> May 2026 DCT Market Analysis &amp; Scheduling Tool ROI · Question A (scheduler efficiency model) · derived from PMC CRC workload survey + Salary.com CRC benchmark + Veeva ARG case + Sci 37 460-FTE headcount.</li>
+    <li><b>[6]</b> May 2026 DCT Market Analysis &amp; Scheduling Tool ROI · Question B (metro-focus revenue uplift) · derived from Tufts/PACT cycle-time data + median pivotal Phase 3 cost + 6-metro prototype throughput.</li>
+    <li><b>[7]</b> Science 37 Q1 2023 financial results · GlobeNewswire · May 15, 2023. Revenue $14.1M.</li>
+    <li><b>[8]</b> Science 37 Q2 2023 financial results · GlobeNewswire · Aug 8, 2023. Revenue $15.4M.</li>
+    <li><b>[9]</b> Science 37 Q3 2023 financial results · GlobeNewswire · Nov 7, 2023. Revenue $14.9M.</li>
+    <li><b>[10]</b> Science 37 corporate · "Research-Grade Nursing" page. 50-state coverage; 13,000+ in-home visits; 14,000+ nurse deployments (no time-period given).</li>
+    <li><b>[11]</b> Society for Clinical Research Sites (SCRS) · "Sites Now: Exploring the Current Clinical Workforce" · 2022–2023. CRC turnover 2–3× pre-pandemic; 7 jobs : 1 candidate; 6–12 month recovery per CRC departure.</li>
+    <li><b>[12]</b> Peer-reviewed Clinical Research Coordinator workload survey · PMC PMC12551268. 7.6 studies × 3.7 PIs per CRC; ~50% can't finish in 40 hrs.</li>
+    <li><b>[13]</b> BCC Research · "Decentralized Clinical Trials: Global Markets" (BIO275A) · Mar 19, 2026. 2024 market $8.8B; 2030 $18.8B; CAGR 13.7%.</li>
+    <li><b>[14]</b> Tufts CSDD–Medable PACT Impact Analysis · peer-reviewed in <i>Therapeutic Innovation &amp; Regulatory Science</i> · DOI 10.1007/s43441-022-00454-5 · Sep 2022. Phase 3 ROI 14×; Phase 3 cycle-time reduced up to 360 days.</li>
+    <li><b>[15]</b> BMC Health Services Research · 2024 review of clinical-trial cost data. Median pivotal Phase 3 cost $48M; median per-patient $41,117.</li>
+    <li><b>[16]</b> Salary.com · Clinical Research Coordinator salary data · Dec 1, 2024. ~$71.5K–$73.7K/yr; ~$34/hr.</li>
+    <li><b>[17]</b> Johnson, E., &amp; Marsh, L. "Clinical research nurse utilisation and role in the conduct of decentralised clinical trials: a literature review." <i>Journal of Research in Nursing</i> 28(3):214–226 · 2023. DOI 10.1177/17449871231162497 · PMC10272696. Peer-reviewed 11-article review; explicitly states no established CRN-to-DCT ratios or workload benchmarks exist in published literature.</li>
+    <li><b>[18]</b> IQVIA · "Decentralized Trial Suite Launches Mobile Research Nursing and Phlebotomy Services Unit" press release · Dec 2021. Published case study: <b>24 trained nurses conducted 389 home visits</b>, reducing patient travel by 58,000+ miles in one program (per-engagement, no time period given).</li>
+    <li><b>[19]</b> Buchsel, P. C., et al. "Measuring clinical trial-associated workload in a community clinical oncology program." <i>Journal of Oncology Practice</i> 9(4):211–215 · 2013. PMC3710172. Wichita CCOP acuity-based workload tool: 86 on-study patients per research-nurse FTE in 2009 (down from 109 in 1999 as protocol acuity rose).</li>
+    <li><b>[20]</b> National Hospice and Palliative Care Organization (NHPCO) · "Hospice Staffing Framework" · 2024. Cites Multi-View Inc. RN caseload benchmarks: 12–14 patients per RN as "excellent"; 16–18 trending; "caseloads of 24 patients are not rare." The framework deliberately does not specify a single recommended range.</li>
+    <li><b>[21]</b> Irani, E., Hirschman, K. B., Cacchione, P. Z., &amp; Bowles, K. H. "How home health nurses plan their work schedules: A qualitative descriptive study." <i>Journal of Clinical Nursing</i> 27(21–22):4066–4076 · 2018. DOI 10.1111/jocn.14548 · PMC6175632. Mid-Atlantic HHA n=20 RNs: 5 new admissions/week, 7 visits/day → ~25–35 active caseload at any time.</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+// Chart styling
+Chart.defaults.font.family = "'Lato', sans-serif";
+Chart.defaults.color = '#5F6368';
+
+const palette = {
+  ink: '#0B1B5C', primary: '#3761EE', accent: '#5BC25B',
+  warn: '#D68A1B', neg: '#C0392B', soft: '#8A8F9C',
+  bg: '#F4F6FB', grid: '#E6EAF2',
+  before: '#C0392B', after: '#1F8A4D',
+};
+
+// Fig 2 · Sci 37 quarterly revenue trajectory
+new Chart(document.getElementById('chartRevenue'), {
+  type: 'bar',
+  data: {
+    labels: ['Q1 2022','Q2 2022','Q3 2022','Q4 2022','Q1 2023','Q2 2023','Q3 2023'],
+    datasets: [
+      { type:'bar', label: 'Revenue ($M)', data: [18.7, 19.2, 16.3, 15.9, 14.1, 15.4, 14.9], backgroundColor: '#3761EE', order: 2 },
+      { type:'line', label: 'Net loss ($M, abs value)', data: [null, null, null, null, 24.6, 19.6, 13.9], borderColor: '#C0392B', backgroundColor: '#C0392B', tension: 0.3, order: 1, pointRadius: 4 },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: $${c.parsed.y}M` } } },
+    scales: {
+      y: { grid: { color: palette.grid }, ticks: { callback: (v) => `$${v}M` }, beginAtZero: true },
+      x: { grid: { display: false } },
+    },
+  },
+});
+
+// Fig 4 · Annual financial impact
+new Chart(document.getElementById('chartImpact'), {
+  type: 'bar',
+  data: {
+    labels: ['Conservative', 'Mid', 'Aggressive'],
+    datasets: [
+      { label: 'Scheduler-side savings ($M/yr)', data: [1.7, 2.5, 3.2], backgroundColor: '#3761EE', borderRadius: 4, stack: 'a' },
+      { label: 'Metro-focus revenue uplift ($M/yr)', data: [48, 84, 132], backgroundColor: '#5BC25B', borderRadius: 4, stack: 'a' },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: $${c.parsed.y}M` } } },
+    scales: {
+      y: { stacked: true, grid: { color: palette.grid }, ticks: { callback: (v) => `$${v}M` }, beginAtZero: true, title: { display: true, text: 'Annual impact (USD millions)' } },
+      x: { stacked: true, grid: { display: false } },
+    },
+  },
+});
+
+// Fig 5 · CRC throughput · v1 full-envelope vs v2 slice
+new Chart(document.getElementById('chartCRC'), {
+  type: 'bar',
+  data: {
+    labels: ['v1 · Full-envelope booking (broken)', 'v2 · Slice-based occupancy'],
+    datasets: [
+      { label: 'Concurrent visits a single CRC can support', data: [1, 3], backgroundColor: ['#C0392B', '#1F8A4D'], borderRadius: 4 },
+    ],
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.parsed.x} concurrent visits` } } },
+    scales: {
+      x: { grid: { color: palette.grid }, beginAtZero: true, suggestedMax: 4, ticks: { stepSize: 1 }, title: { display: true, text: 'Concurrent visits supported per CRC' } },
+      y: { grid: { display: false } },
+    },
+  },
+});
+
+// Fig 6 · CRC : participant ratio
+new Chart(document.getElementById('chartRatio'), {
+  type: 'bar',
+  data: {
+    labels: ['Industry low (1:15)', 'Industry high (1:30)', 'Visit Operations Platform prototype (1:42)'],
+    datasets: [
+      { label: 'Participants per CRC', data: [15, 30, 42], backgroundColor: ['#C0392B', '#D68A1B', '#1F8A4D'], borderRadius: 4 },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `1 CRC : ${c.parsed.y} participants` } } },
+    scales: {
+      y: { grid: { color: palette.grid }, beginAtZero: true, title: { display: true, text: 'Participants supported per CRC' } },
+      x: { grid: { display: false } },
+    },
+  },
+});
+
+// Fig 7 · RN : participant ratio · prototype vs adjacent nursing benchmarks
+new Chart(document.getElementById('chartRN'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'Visit Operations Platform prototype · 1:12',
+      'Hospice — "excellent" (NHPCO/Multi-View) · 1:13',
+      'Hospice — "not rare" (NHPCO 2024) · 1:24',
+      'Home health — active caseload (Irani 2018) · ~1:30',
+      'Site-based oncology research nurse (Buchsel 2013) · 1:86',
+    ],
+    datasets: [
+      { label: 'Participants per RN', data: [12, 13, 24, 30, 86], backgroundColor: ['#1F8A4D', '#3761EE', '#3761EE', '#D68A1B', '#C0392B'], borderRadius: 4 },
+    ],
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `1 RN : ${c.parsed.x} participants` } } },
+    scales: {
+      x: { grid: { color: palette.grid }, beginAtZero: true, title: { display: true, text: 'Participants per RN (snapshot caseload)' } },
+      y: { grid: { display: false } },
+    },
+  },
+});
+</script>
+
+</body>
+</html>
