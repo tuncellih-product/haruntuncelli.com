@@ -70,15 +70,18 @@
             </a>
           </div>
         </div>
-        <!-- TODO: replace this .hero-video.stub with the live iframe once recorded:
-             <div class="hero-video"><iframe src="https://www.youtube.com/embed/VIDEO_ID"
-                title="Intro to the Science 37 Visit Operations Platform portfolio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe></div> -->
-        <div class="hero-video stub" aria-label="Video intro placeholder">
-          <div class="play-orb">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <span class="stub-label">Video intro · YouTube embed</span>
+        <div class="hero-video">
+          <iframe src="https://www.youtube.com/embed/ukK9iPPAv3w?si=oZyiLVuOEPiOAO-J&enablejsapi=1"
+            title="Intro to the Science 37 Visit Operations Platform case study"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+          <button type="button" class="hero-video-cover" aria-label="Play Science 37 case study">
+            <span class="cover-orb">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="cover-label">Watch the Science 37 case study</span>
+          </button>
         </div>
       </div>
     </div>
@@ -376,5 +379,15 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('.hero-video-cover').forEach(function (cover) {
+      var iframe = cover.parentElement.querySelector('iframe');
+      if (!iframe) return;
+      cover.addEventListener('click', function () {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        cover.classList.add('is-playing');
+      });
+    });
+  </script>
 </body>
 </html>

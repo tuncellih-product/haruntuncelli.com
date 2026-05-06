@@ -48,15 +48,18 @@
             <span>🔗 <a href="https://www.linkedin.com/in/harun-tuncelli/" target="_blank" rel="noopener">LinkedIn</a></span>
           </div>
         </div>
-        <!-- TODO: replace this .hero-video.stub with the live iframe once recorded:
-             <div class="hero-video"><iframe src="https://www.youtube.com/embed/VIDEO_ID"
-                title="Intro to the portfolio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe></div> -->
-        <div class="hero-video stub" aria-label="Video intro placeholder">
-          <div class="play-orb">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <span class="stub-label">Video intro · YouTube embed</span>
+        <div class="hero-video">
+          <iframe src="https://www.youtube.com/embed/d2nXrD-oN2I?si=X-f-Nah2fBXfZx9d&enablejsapi=1"
+            title="Intro to the portfolio"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+          <button type="button" class="hero-video-cover" aria-label="Play portfolio intro">
+            <span class="cover-orb">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="cover-label">Watch the portfolio intro</span>
+          </button>
         </div>
       </div>
     </div>
@@ -92,7 +95,7 @@
       <div class="section-header">
         <span class="kicker">Case study · Decentralized clinical trials</span>
         <h2>Science 37 — Sr. Product Designer</h2>
-        <p>Designed Visit Operations Platform, the scheduling system that allocates 330+ clinical staff across multi-study decentralized trials. Outcomes: 31% increase in scheduling efficiency and 50% reduction in scheduling personnel.</p>
+        <p>Designed Visit Operations Platform, the scheduling system that allocates 330+ clinical staff across multi-study decentralized trials. Modeled impact: <strong>$1.7–3.2M/yr</strong> scheduler-side capacity reclaim, scaling to <strong>$50–135M/yr</strong> with a 6-metro footprint built around the optimizer engine as operating-model substrate.</p>
       </div>
       <a class="featured-card" href="science37.html">
         <div class="featured-content">
@@ -241,5 +244,15 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('.hero-video-cover').forEach(function (cover) {
+      var iframe = cover.parentElement.querySelector('iframe');
+      if (!iframe) return;
+      cover.addEventListener('click', function () {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        cover.classList.add('is-playing');
+      });
+    });
+  </script>
 </body>
 </html>
