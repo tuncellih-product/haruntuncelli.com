@@ -111,6 +111,27 @@ body.science37 {
   --shadow-strong: 0 2px 6px rgba(29, 58, 19, 0.08), 0 16px 40px rgba(29, 58, 19, 0.10);
 }
 
+/* Educational apps (MathClash + SplitHomework) — indigo identity, sampled from
+   the two apps' own accents (#5b63d6 / #6f8cff). Apply via <body class="eduapps">. */
+body.eduapps {
+  --p-900: #1f2150;
+  --p-800: #2b2e6a;
+  --p-700: #3f44a0;
+  --p-600: #5159c6;
+  --p-500: #6f78e6;
+  --p-400: #9aa1ee;
+  --p-200: #cdd1f6;
+  --p-100: #ebedfb;
+  --p-50:  #f6f7fd;
+
+  --line: #dcdef4;
+  --line-strong: #c4c8ee;
+  --bg-soft: #fafbff;
+
+  --shadow: 0 1px 2px rgba(31, 33, 80, 0.06), 0 8px 24px rgba(31, 33, 80, 0.06);
+  --shadow-strong: 0 2px 6px rgba(31, 33, 80, 0.08), 0 16px 40px rgba(31, 33, 80, 0.10);
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -308,12 +329,14 @@ a:hover { text-decoration: underline; }
   box-shadow: var(--shadow-strong);
 }
 .hero-video iframe,
-.hero-video video {
+.hero-video video,
+.hero-video > img {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
 }
+.hero-video > img { object-fit: cover; }
 .hero-video-cover {
   position: absolute;
   inset: 0;
@@ -585,6 +608,28 @@ section:last-of-type { border-bottom: none; }
   border-color: var(--line);
   transform: none;
   box-shadow: none;
+}
+
+/* ===== Screenshot figure (a single bordered shot with a caption, optionally a link) ===== */
+.shot-link { display: block; text-decoration: none; }
+.shot-link:hover { text-decoration: none; }
+.shot {
+  margin: 24px 0 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: white;
+  transition: border-color 0.16s, box-shadow 0.16s, transform 0.08s;
+}
+.shot-link:hover .shot { border-color: var(--p-500); box-shadow: var(--shadow-strong); transform: translateY(-2px); }
+.shot img { width: 100%; display: block; }
+.shot figcaption {
+  font-size: 13px;
+  color: var(--ink-3);
+  padding: 10px 16px;
+  background: var(--bg-soft);
+  border-top: 1px solid var(--line);
 }
 
 /* ===== Vertical decks layout ===== */
